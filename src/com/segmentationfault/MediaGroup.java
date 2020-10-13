@@ -3,7 +3,7 @@ package com.segmentationfault;
 import java.io.File;
 import java.util.ArrayList;
 
-public class MediaGroup {
+public abstract class MediaGroup {
     String name;
     int type;
     ArrayList<File> paths;
@@ -19,6 +19,15 @@ public class MediaGroup {
      */
     public void addPath(File path){
         paths.add(path);
+    }
+
+    @Override
+    public String toString() {
+        return "MediaGroup{" +
+                "name='" + name + '\'' +
+                ", type=" + type +
+                ", paths=" + paths +
+                '}';
     }
 
     //just getter and setter classes past here
