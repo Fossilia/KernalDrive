@@ -8,14 +8,21 @@ public class MediaScanner {
 
     public MediaScanner(){
         mediaGroups = new ArrayList<>();
-        getGroupInfo();
+        String input = "";
+        System.out.println("Welcome to KernalDrive!");
+        while(!input.equals("no")){
+            getNewGroupInfo();
+            System.out.println("Would you like to add another group? Input 'yes' or 'no':");
+            input = Input.getStringInput();
+        }
+        System.out.println("Groups inputted: "+mediaGroups);
     }
 
     /**
      * Creates a ne
      */
-    public void getGroupInfo(){
-        System.out.println("Welcome to KernalDrive, please type in the name of your group:");
+    public void getNewGroupInfo(){
+        System.out.println("please type in the name of your group:");
         String name = Input.getStringInput();
         MediaGroup group = new MediaGroup(name);
         System.out.println("Please input [1] if this a Movie group or input [2] if it is Shows group:");
