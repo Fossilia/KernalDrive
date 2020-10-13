@@ -13,6 +13,16 @@ public class MediaGroup {
         paths = new ArrayList<>();
     }
 
+    /**
+     * Used to add a File object to the paths list
+     * @param path
+     */
+    public void addPath(File path){
+        paths.add(path);
+    }
+
+    //just getter and setter classes past here
+
     public String getName() {
         return name;
     }

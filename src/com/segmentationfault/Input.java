@@ -10,7 +10,12 @@ public final class Input {
 
     public static final Scanner sc = new Scanner(System.in);
 
-    /**gets an integer from the user between min and max (inclusive), checks for exceptions*/
+    /**
+     * gets an integer from the user between min and max (inclusive), checks for exceptions
+     * @param min lowest number
+     * @param max highest numer
+     * @return final valid input
+     */
     public static int getIntInput(int min, int max){
         int input = 0;
         boolean done = false;
@@ -37,7 +42,10 @@ public final class Input {
         return input;
     }
 
-    /**gets a string from the user, checks for exceptions*/
+    /**
+     * gets a string from the user, checks for exceptions
+     * @return valid string input
+     */
     public static String getStringInput(){
         String input = "";
         boolean done = false;
@@ -50,7 +58,8 @@ public final class Input {
                     continue;
                 }
                 else if(input.toLowerCase().equals("exit")){
-                    System.exit(0);
+                    //System.exit(0);
+                    return input;
                 }
                 //sc.nextLine();
                 done = true;
@@ -63,7 +72,10 @@ public final class Input {
         return input;
     }
 
-    /**gets a valid path from the user*/
+    /**
+     * gets a valid path from the user
+     * @return
+     */
     public static String getValidPath(){
         boolean done = false;
         String input = getStringInput();
@@ -71,6 +83,9 @@ public final class Input {
         while(!done){
             if(file.exists()){
                 done = true;
+            }
+            else if(input.equals("exit")){
+                return input;
             }
             else{
                 System.out.println("That path was invalid, please type in a valid path or 'exit' to exit.");
