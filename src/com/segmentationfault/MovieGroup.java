@@ -8,6 +8,7 @@ public class MovieGroup extends MediaGroup{
 
     public MovieGroup(String name){
         super(name);
+        movies = new ArrayList<>();
     }
 
     public void addMovie(Movie movie){
