@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public abstract class MediaGroup {
     String name;
-    int type;
     ArrayList<File> paths;
 
     public MediaGroup(String name){
@@ -25,7 +24,6 @@ public abstract class MediaGroup {
     public String toString() {
         return "MediaGroup{" +
                 "name='" + name + '\'' +
-                ", type=" + type +
                 ", paths=" + paths +
                 '}';
     }
@@ -38,14 +36,6 @@ public abstract class MediaGroup {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
     }
 
     public ArrayList<File> getPaths() {

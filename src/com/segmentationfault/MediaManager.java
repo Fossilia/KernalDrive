@@ -24,11 +24,18 @@ public class MediaManager {
     public void getNewGroupInfo(){
         System.out.println("please type in the name of your group:");
         String name = Input.getStringInput();
-        MovieGroup group = new MovieGroup(name);
         System.out.println("Please input [1] if this a Movie group or input [2] if it is Shows group:");
         int type = Input.getIntInput(1, 2);
-        group.setType(type);
-        addPaths(group);
+        if(type == 1){ //if movie
+            MovieGroup group = new MovieGroup(name);
+            addPaths(group);
+            MovieScanner scanner = new MovieScanner();
+            scanner.scan(group);
+            movieGroups.add(group);
+        }
+        else{ //if show
+            //show scanning to be implemented later
+        }
     }
 
     /**
