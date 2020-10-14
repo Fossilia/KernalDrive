@@ -7,6 +7,8 @@ public class Movie {
     File file;
     String name;
 
+    String folderName;
+
     public Movie(File file){
         this.file = file;
         name = file.getName();
@@ -26,5 +28,13 @@ public class Movie {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getFolderName() {
+        return folderName;
+    }
+
+    public void setFolderName(String folderName) {
+        this.folderName = folderName;
     }
 }
