@@ -43,6 +43,9 @@ VBox sideBarIcons;
 HBox screenHBox;
 @FXML
 HBox homeItem;
+    private String hello = "Hello";
+
+
 
     private String boldFontPath = "file:C:\\Users\\HP\\IdeaProjects\\RandomTest\\varela\\Varela-Regular.otf";
     private Font movieFont = Font.loadFont(boldFontPath, 12);
