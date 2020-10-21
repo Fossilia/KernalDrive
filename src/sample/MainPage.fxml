@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <HBox fx:id="screenHBox" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <VBox fx:id="sideBarIcons" prefHeight="400.0" prefWidth="118.0" style="-fx-background-color: EEF3F4;">
+               <children>
+                  <Button fx:id="userIconBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: EEF3F4;">
+                     <graphic>
+                        <FontAwesomeIconView fx:id="userIcon" fill="#0054b4" glyphName="USER" />
+                     </graphic>
+                  </Button>
+                  <Label fx:id="userGreeting" alignment="CENTER" prefHeight="17.0" prefWidth="132.0" text="Hi, Wesam" textAlignment="CENTER" textFill="#0054b4" />
+                  <HBox fx:id="space" prefHeight="27.0" prefWidth="118.0" />
+                  <HBox fx:id="homeItem" prefHeight="27.0" prefWidth="118.0">
+                     <children>
+                        <Button fx:id="homeBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" style="-fx-background-color: EEF3F4;" text="Home" textFill="#0054b4">
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding>
+                           <graphic>
+                              <FontAwesomeIconView fx:id="homeIcon" fill="#0054b4" glyphName="HOME" />
+                           </graphic>
+                        </Button>
+                        <Rectangle fx:id="currRect" arcHeight="8.0" arcWidth="8.0" fill="#0054b4" height="20.0" stroke="#0054b4" strokeType="INSIDE" width="10.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox fx:id="mainPage" prefHeight="400.0" prefWidth="482.0">
+               <children>
+                  <HBox fx:id="topBar" prefHeight="49.0" prefWidth="482.0">
+                     <children>
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="45.0" prefWidth="379.0" style="-fx-background-color: White;" text="Home" textFill="#0054b4" />
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="102.0" style="-fx-background-color: white;">
+                           <graphic>
+                              <FontAwesomeIconView fill="#0054b4" glyphName="SEARCH" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <VBox fx:id="forYouBox" prefWidth="100.0">
+                     <children>
+                        <HBox prefHeight="52.0" prefWidth="482.0">
+                           <children>
+                              <Label fx:id="forYouTxt" prefHeight="51.0" prefWidth="131.0" text="FOR YOU" />
+                           </children>
+                        </HBox>
+                        <HBox fx:id="arrowHBox" prefHeight="36.0" prefWidth="482.0" />
+                        <HBox fx:id="forYouMovies" prefWidth="482.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
