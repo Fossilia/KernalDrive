@@ -28,34 +28,50 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser;
 
 import java.awt.*;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Stack;
 
 public class Main extends Application {
 
-    Button button;
+    Button fileButton, backButton;
 
-    //HELLO HELLO WORLD
     @Override
     public void start(Stage primaryStage) throws Exception {
 
         primaryStage.setTitle("Homepage - KernalDrive");
         Pane layout = new Pane();
+        Pane layout2 = new Pane();  //For About Us Page
+        Scene scene = new Scene(layout); //, 1500, 700);
+        Scene scene1 = new Scene(layout2, 1500,700);    //For About Us Page
+
         layout.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        layout2.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        FileChooser fileChooser = new FileChooser();
 
         //ADDING BUTTON-------------------------------
-        button = new Button();
-        button.setText("Enter");
-        button.setFont(Font.loadFont(new FileInputStream("C:\\Users\\ahmed\\IdeaProjects\\HomePage KernalDrive\\src\\Varela-Regular.ttf"), 25));
-        button.setStyle("-fx-text-fill: #0054b4;");
-        button.setLayoutX(1510);
-        button.setLayoutY(600);
-        layout.getChildren().addAll(button);
+        fileButton = new Button();
+        fileButton.setText("File Chooser");
+        fileButton.setFont(Font.loadFont(new FileInputStream("C:\\Users\\ahmed\\OneDrive\\Documents\\GitHub\\KernalDrive\\src\\Varela-Regular.ttf"), 25));
+        fileButton.setStyle("-fx-text-fill: #0054b4;");
+        fileButton.setLayoutX(1050);
+        fileButton.setLayoutY(700);
+        layout.getChildren().addAll(fileButton);
+
+        fileButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                File file = fileChooser.showOpenDialog(primaryStage);
+            }
+        });
 
         //ADDING LOGO-------------------------------
-        FileInputStream inputStream = new FileInputStream("C:\\Users\\ahmed\\IdeaProjects\\HomePage KernalDrive\\src\\LOGO.png");
+        FileInputStream inputStream = new FileInputStream("C:\\Users\\ahmed\\OneDrive\\Documents\\GitHub\\KernalDrive\\src\\LOGO.png");
         Image image = new Image(inputStream);
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(400);
@@ -65,23 +81,25 @@ public class Main extends Application {
         layout.getChildren().add(imageView);
 
         //ADDING LABEL
-        Label label1 = new Label("Text Label:");
+        Label label1 = new Label("Click Here to Choose a Media File:");
         label1.setStyle("-fx-text-fill: #0054B4;");
-        label1.setFont(Font.loadFont(new FileInputStream("C:\\Users\\ahmed\\IdeaProjects\\HomePage KernalDrive\\src\\Varela-Regular.ttf"), 25));
+        label1.setFont(Font.loadFont(new FileInputStream("C:\\Users\\ahmed\\OneDrive\\Documents\\GitHub\\KernalDrive\\src\\Varela-Regular.ttf"), 25));
         label1.setMaxWidth(Double.MAX_VALUE);
-        label1.setLayoutX(322);
-        label1.setLayoutY(610);
+        label1.setLayoutX(615);
+        label1.setLayoutY(710);
+        layout.getChildren().add(label1);
 
-        //ADDING TEXTFIELD-------------------------------
+        /*//ADDING TEXTFIELD-------------------------------
         TextField textField = new TextField ("Type Something Here...");
-        textField.setFont(Font.loadFont(new FileInputStream("C:\\Users\\ahmed\\IdeaProjects\\HomePage KernalDrive\\src\\Varela-Regular.ttf"), 25));
+        textField.setFont(Font.loadFont(new FileInputStream("C:\\Users\\ahmed\\OneDrive\\Documents\\GitHub\\KernalDrive\\src\\Varela-Regular.ttf"), 25));
         textField.setStyle("-fx-text-fill: #0054B4;");
         textField.setLayoutX(480);
         textField.setLayoutY(600);
         textField.setPrefWidth(1000);
+        */
 
         //ADDING SETTINGS ICON-------------------------------
-        FileInputStream inputStream1 = new FileInputStream("C:\\Users\\ahmed\\IdeaProjects\\HomePage KernalDrive\\src\\Settings.png");
+        FileInputStream inputStream1 = new FileInputStream("C:\\Users\\ahmed\\OneDrive\\Documents\\GitHub\\KernalDrive\\src\\Settings.png");
         Image settings = new Image(inputStream1);
         ImageView imageView1 = new ImageView(settings);
         imageView1.setFitHeight(115);
@@ -104,7 +122,7 @@ public class Main extends Application {
         layout.getChildren().add(imageView1);
 
         //ADDING HOME ICON-------------------------------
-        FileInputStream inputStream2 = new FileInputStream("C:\\Users\\ahmed\\IdeaProjects\\HomePage KernalDrive\\src\\Home.png");
+        FileInputStream inputStream2 = new FileInputStream("C:\\Users\\ahmed\\OneDrive\\Documents\\GitHub\\KernalDrive\\src\\Home.png");
         Image home = new Image(inputStream2);
         ImageView imageView2 = new ImageView(home);
         imageView2.setFitHeight(115);
@@ -114,7 +132,7 @@ public class Main extends Application {
         layout.getChildren().add(imageView2);
 
         //ADDING ABOUT US ICON-------------------------------
-        FileInputStream inputStream3 = new FileInputStream("C:\\Users\\ahmed\\IdeaProjects\\HomePage KernalDrive\\src\\About-Us.png");
+        FileInputStream inputStream3 = new FileInputStream("C:\\Users\\ahmed\\OneDrive\\Documents\\GitHub\\KernalDrive\\src\\About-Us.png");
         Image aboutUs = new Image(inputStream3);
         ImageView imageView3 = new ImageView(aboutUs);
         imageView3.setFitHeight(115);
@@ -127,21 +145,58 @@ public class Main extends Application {
         imageView3.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                Alert a = new Alert(Alert.AlertType.INFORMATION);
-                a.setContentText("We are 5 University Students who go to the University of Windsor and are making our very own Software Engineering Project!");
-                a.setTitle("About Us");
-                a.setHeaderText("About Us");
-                a.show();
+
+                primaryStage.setScene(scene1);
+                Label label2 = new Label("About Us");
+                label2.setStyle("-fx-text-fill: #0054B4;");
+                try {
+                    label2.setFont(Font.loadFont(new FileInputStream("C:\\Users\\ahmed\\OneDrive\\Documents\\GitHub\\KernalDrive\\src\\Varela-Regular.ttf"), 45));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                label2.setMaxWidth(Double.MAX_VALUE);
+                label2.setLayoutX(630);
+                label2.setLayoutY(50);
+
+                Label label3 = new Label("We are 5 Computer Science students who attend the University of Windsor.\n" +
+                        "We are excited to keep working on this project! ");
+                label3.setStyle("-fx-text-fill: #0054B4;");
+
+                try {
+                    label3.setFont(Font.loadFont(new FileInputStream("C:\\Users\\ahmed\\OneDrive\\Documents\\GitHub\\KernalDrive\\src\\Varela-Regular.ttf"), 30));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                label3.setMaxWidth(Double.MAX_VALUE);
+                label3.setLayoutX(200);
+                label3.setLayoutY(300);
+
+                backButton = new Button();
+                backButton.setText("Back");
+
+                try {
+                    backButton.setFont(Font.loadFont(new FileInputStream("C:\\Users\\ahmed\\OneDrive\\Documents\\GitHub\\KernalDrive\\src\\Varela-Regular.ttf"), 25));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                backButton.setStyle("-fx-text-fill: #0054b4;");
+                backButton.setLayoutX(680);
+                backButton.setLayoutY(490);
+
+                backButton.setOnAction(event1 -> primaryStage.setScene(scene));
+                primaryStage.setMaximized(true);
+                layout2.getChildren().addAll(label2, label3, backButton);
 
             }
         });
+
         layout.getChildren().add(imageView3);
 
         HBox hb = new HBox();
-        layout.getChildren().addAll(textField, label1);
         hb.setSpacing(0);
 
-        Scene scene = new Scene(layout, 1500, 700);
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);        //starts program as full screen
         primaryStage.show();
