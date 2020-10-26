@@ -45,4 +45,5 @@ public abstract class MediaGroup {
     public void setPaths(ArrayList<File> paths) {
         this.paths = paths;
     }
+
 }

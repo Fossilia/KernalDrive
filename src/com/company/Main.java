@@ -1,12 +1,12 @@
 package com.company;
 
+import com.sun.javafx.application.LauncherImpl;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 
@@ -14,8 +14,6 @@ import javafx.scene.input.MouseEvent;
 
 //FOR FONTS
 import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
 
 //FOR IMAGES
 import javafx.scene.image.ImageView;
@@ -67,6 +65,8 @@ public class Main extends Application {
         Scene scene = new Scene(layout, 1920, 1080);
         Scene scene1 = new Scene(layout2, 1920,1080);    //For About Us Page
 
+
+
         //CSS SHEETS
         scene.getStylesheets().add("/com/company/list-view.css");
         scene1.getStylesheets().add("/com/company/list-view.css");
@@ -85,7 +85,8 @@ public class Main extends Application {
         layout2.setBackground(new Background(new BackgroundFill(Color.rgb(33, 32, 31), CornerRadii.EMPTY, Insets.EMPTY)));
 
         //ADDING TEXTFIELD-------------------------------
-        TextField textField = new TextField ("Enter Group Name...");
+        TextField textField = new TextField ();
+        textField.setPromptText("Enter Group Name...");
         textField.setFont(Font.loadFont(new FileInputStream("C:\\Users\\ahmed\\OneDrive\\Documents\\GitHub\\KernalDrive\\src\\Varela-Regular.ttf"), 25));
         textField.setStyle("-fx-text-fill: #0054B4;");
         textField.setLayoutX((screenWidth/30)*6.5);
@@ -106,15 +107,12 @@ public class Main extends Application {
         comboBox.getEditor().setFont(Font.font("Varela-Regular.ttf"));
         comboBox.setPromptText("Group Type");
         comboBox.setLayoutX((screenWidth/20*12.7));
-            comboBox.setLayoutY((screenHeight/20)*11.1);
+        comboBox.setLayoutY((screenHeight/20)*11.1);
         comboBox.setPrefWidth(260);
         comboBox.setStyle("-fx-text-fill: #0054B4;");
         comboBox.setStyle("-fx-font-size: 25");
 
         layout.getChildren().add(comboBox);
-
-        //comboBox.getAccessibleText();
-        System.out.println(comboBox.getValue());
 
         //ADDING BUTTON-------------------------------
         DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -378,15 +376,6 @@ public class Main extends Application {
         HBox hb = new HBox();
         hb.setSpacing(0);
 
-        /*//CREATING TEXT AREA--------------------------
-        TextArea textArea = new TextArea();
-        textArea.setEditable(false);
-        textArea.setPreferredSize(new Dimension(200, 200));
-        textArea.setText("TESTINGGGG");
-        textArea.setLocation(0, 0);
-        System.out.println(textArea.isShowing());
-        */
-
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);        //starts program as full screen
         primaryStage.show();
@@ -396,16 +385,14 @@ public class Main extends Application {
     public void addGroup(String groupName, String groupType){
         if(groupType == "Movies"){
             MediaGroup mediaGroup = new MovieGroup(groupName);
-            mediaGroup.setPaths(groupPaths);
-            mediaGroups.add(mediaGroup);
+            copyPaths(mediaGroup.getPaths());
+            //printGroups(mediaGroup.getPaths());
         }
 
         if(groupType == "TV"){
             MediaGroup mediaGroup = new ShowGroup(groupName);
-            mediaGroup.setPaths(groupPaths);
-            mediaGroups.add(mediaGroup);
+            copyPaths(mediaGroup.getPaths());
         }
-        printGroups();
     }
 
     public void clearScreen(TextField textField, ComboBox comboBox, ListView folderPath){
@@ -415,9 +402,15 @@ public class Main extends Application {
         folderPath.getItems().clear();
     }
 
-    private void printGroups(){
-        for(MediaGroup a : mediaGroups){
+    private void printGroups(ArrayList<File> groupPaths){
+        for(File a : groupPaths){
             System.out.println(a);
+        }
+    }
+
+   public void copyPaths(ArrayList<File> groupPaths){
+        for(File filePath : this.groupPaths){
+            groupPaths.add(filePath);
         }
     }
 
