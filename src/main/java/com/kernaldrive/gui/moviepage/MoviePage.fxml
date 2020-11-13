@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernaldrive.gui.moviepage.MoviePageController">
    <children>
       <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="1030.0">
          <content>
@@ -22,7 +22,7 @@
                      <children>
                         <ImageView fitHeight="543.0" fitWidth="1194.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: innershadow(gaussian, rgb(238, 243, 244), 1000, .5, 0, 0);">
                            <image>
-                              <Image url="@rots_banner.jpg" />
+                              <Image url="@../../../../../../../../../../Desktop/rots_banner.jpg" />
                            </image>
                            <VBox.margin>
                               <Insets left="10.0" top="10.0" />
@@ -35,7 +35,7 @@
                            <children>
                               <ImageView fitHeight="429.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@rots_poster.jpg" />
+                                    <Image url="@../../../../../../../../../../Desktop/rots_poster.jpg" />
                                  </image>
                                  <HBox.margin>
                                     <Insets bottom="10.0" left="100.0" right="10.0" top="-80.0" />
@@ -43,15 +43,15 @@
                               </ImageView>
                               <VBox prefHeight="372.0" prefWidth="745.0">
                                  <children>
-                                    <Label text="Star Wars: Episode III - Revenge of the Sith" textFill="WHITE">
+                                    <Label text="Star Wars: Episode III - Revenge of the Sith">
                                        <font>
                                           <Font name="Gadugi Bold" size="40.0" />
                                        </font>
                                        <VBox.margin>
-                                          <Insets left="20.0" top="-80.0" />
+                                          <Insets left="20.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Label text="2019" textFill="WHITE">
+                                    <Label text="2005">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -87,7 +87,7 @@
                                        <children>
                                           <ImageView fitHeight="20.0" fitWidth="42.0" pickOnBounds="true">
                                              <image>
-                                                <Image url="@4k_vector.png" />
+                                                <Image url="@../../../../../../../../../../Desktop/4k_vector.png" />
                                              </image>
                                              <HBox.margin>
                                                 <Insets left="20.0" right="5.0" />
@@ -95,7 +95,7 @@
                                           </ImageView>
                                           <ImageView fitHeight="21.0" fitWidth="136.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@hdr_vector.PNG" />
+                                                <Image url="@../../../../../../../../../../Desktop/hdr_vector.PNG" />
                                              </image>
                                              <HBox.margin>
                                                 <Insets left="5.0" />
@@ -113,6 +113,22 @@
                               </VBox>
                            </children>
                         </HBox>
+                        <Label text="The saga is complete.">
+                           <font>
+                              <Font name="System Bold Italic" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="50.0" top="-20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store.">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="50.0" top="10.0" />
+                           </VBox.margin>
+                        </Label>
                      </children>
                   </VBox>
                </children>
