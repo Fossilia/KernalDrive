@@ -14,16 +14,16 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernaldrive.gui.moviepage.MoviePageController">
    <children>
-      <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="1030.0">
+      <ScrollPane fx:id="scrollPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="1030.0">
          <content>
             <Pane prefHeight="2000.0" prefWidth="1013.0">
                <children>
                   <VBox layoutX="15.0" layoutY="14.0" prefHeight="1900.0" style="-fx-background-color: #eef3f4; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, lightgrey, 10, 0.5, 0.0, 0.0);">
                      <children>
-                        <ImageView fitHeight="543.0" fitWidth="1194.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: innershadow(gaussian, rgb(238, 243, 244), 1000, .5, 0, 0);">
-                           <image>
+                        <ImageView fx:id="bannerImageView" fitHeight="543.0" fitWidth="1194.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: innershadow(gaussian, rgb(238, 243, 244), 1000, .5, 0, 0);">
+                           <!--<image>
                               <Image url="@../../../../../../../../../../Desktop/rots_banner.jpg" />
-                           </image>
+                           </image>-->
                            <VBox.margin>
                               <Insets left="10.0" top="10.0" />
                            </VBox.margin>
@@ -33,17 +33,17 @@
                         </ImageView>
                         <HBox prefHeight="352.0" prefWidth="852.0">
                            <children>
-                              <ImageView fitHeight="429.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
+                              <ImageView fx:id="posterImage" fitHeight="429.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                 <!--<image>
                                     <Image url="@../../../../../../../../../../Desktop/rots_poster.jpg" />
-                                 </image>
+                                 </image>-->
                                  <HBox.margin>
-                                    <Insets bottom="10.0" left="100.0" right="10.0" top="-80.0" />
+                                    <Insets bottom="10.0" left="80.0" right="10.0" top="-80.0" />
                                  </HBox.margin>
                               </ImageView>
                               <VBox prefHeight="372.0" prefWidth="745.0">
                                  <children>
-                                    <Label text="Star Wars: Episode III - Revenge of the Sith">
+                                    <Label fx:id="titleLabel" text="Star Wars: Episode III - Revenge of the Sith">
                                        <font>
                                           <Font name="Gadugi Bold" size="40.0" />
                                        </font>
@@ -51,7 +51,7 @@
                                           <Insets left="20.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Label text="2005">
+                                    <Label fx:id="yearLabel" text="2005">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -59,7 +59,7 @@
                                           <Insets bottom="10.0" left="20.0" top="-10.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Label text="PG-13">
+                                    <Label fx:id="mpaaLabel" text="PG-13">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -67,7 +67,7 @@
                                           <Insets left="20.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Label text="3 hr 6 min">
+                                    <Label fx:id="runtimeLabel" text="3 hr 6 min">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -75,7 +75,7 @@
                                           <Insets left="20.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Label text="Action, Adventure, Science Fiction">
+                                    <Label fx:id="genreLabel" text="Action, Adventure, Science Fiction">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -113,7 +113,7 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <Label text="The saga is complete.">
+                        <Label fx:id="taglineLabel" text="The saga is complete.">
                            <font>
                               <Font name="System Bold Italic" size="24.0" />
                            </font>
@@ -121,7 +121,7 @@
                               <Insets left="50.0" top="-20.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store.">
+                        <Label fx:id="synopsisLabel" text="After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store.">
                            <font>
                               <Font size="15.0" />
                            </font>

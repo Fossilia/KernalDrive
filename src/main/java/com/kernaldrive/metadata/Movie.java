@@ -15,6 +15,8 @@ public class Movie extends Media {
     private String overview;
     private String releaseDate;
     private String posterPath;
+    private String bannerPath;
+    private String runtime;
 
     private List<Genre> genres;
     private List<PersonCast> cast;
@@ -104,5 +106,23 @@ public class Movie extends Media {
 
     public void setPosterBaseURL(String posterBaseURL) {
         this.posterBaseURL = posterBaseURL;
+    }
+
+    public String getBannerPath() {
+        return bannerPath;
+    }
+
+    public void setBannerPath(String bannerPath) {
+        this.bannerPath = posterBaseURL + bannerPath;
+    }
+
+    public String getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(int runtime) {
+        int hours = runtime / 60; //since both are ints, you get an int
+        int minutes = runtime % 60;
+        this.runtime = hours+" hr " + minutes + " min";
     }
 }
