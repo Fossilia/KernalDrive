@@ -10,6 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
+<?import java.net.URL?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernaldrive.gui.MainPageController">
    <children>
       <HBox fx:id="screenWrapper" prefHeight="400.0" prefWidth="600.0">
@@ -45,7 +46,7 @@
                         <HBox fx:id="titleBar" prefHeight="100.0" prefWidth="200.0" />
                      </children>
                   </VBox>
-                  <ScrollPane fx:id="contentPage" prefHeight="410.0" prefWidth="479.0" stylesheets="@MainPageStyle.css">
+                  <ScrollPane fx:id="contentPage" prefHeight="410.0" prefWidth="479.0">
                      <content>
                         <VBox fx:id="contentContainer" prefHeight="337.0" prefWidth="460.0" />
                      </content>
@@ -55,4 +56,7 @@
          </children>
       </HBox>
    </children>
+   <stylesheets>
+      <URL value="@MainPageStyle.css" />
+   </stylesheets>
 </AnchorPane>

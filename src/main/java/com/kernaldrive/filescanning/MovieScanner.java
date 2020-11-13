@@ -43,8 +43,8 @@ public class MovieScanner {
             if (file.isFile()) { //check if it is a valid file (and not a folder)
                 for (String ext : validExtensions) { //go through all of the valid extensions
                     if (ext.toLowerCase().equals(getExtension(file))) { //check if the extensions are equal
-                        System.out.println(file.getName());
-                        //addMovie(file, movieGroup);
+                        //System.out.println(file.getName());
+                        addMovie(file, movieGroup);
                         break;
                     }
                 }

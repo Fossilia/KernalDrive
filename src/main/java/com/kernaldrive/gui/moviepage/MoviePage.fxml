@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="1030.0">
+         <content>
+            <Pane prefHeight="2000.0" prefWidth="1013.0">
+               <children>
+                  <VBox layoutX="15.0" layoutY="14.0" prefHeight="1900.0" style="-fx-background-color: #eef3f4; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, lightgrey, 10, 0.5, 0.0, 0.0);">
+                     <children>
+                        <ImageView fitHeight="543.0" fitWidth="1194.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: innershadow(gaussian, rgb(238, 243, 244), 1000, .5, 0, 0);">
+                           <image>
+                              <Image url="@rots_banner.jpg" />
+                           </image>
+                           <VBox.margin>
+                              <Insets left="10.0" top="10.0" />
+                           </VBox.margin>
+                           <viewport>
+                              <Rectangle2D height="200.0" />
+                           </viewport>
+                        </ImageView>
+                        <HBox prefHeight="352.0" prefWidth="852.0">
+                           <children>
+                              <ImageView fitHeight="429.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@rots_poster.jpg" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets bottom="10.0" left="100.0" right="10.0" top="-80.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <VBox prefHeight="372.0" prefWidth="745.0">
+                                 <children>
+                                    <Label text="Star Wars: Episode III - Revenge of the Sith" textFill="WHITE">
+                                       <font>
+                                          <Font name="Gadugi Bold" size="40.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets left="20.0" top="-80.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label text="2019" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" left="20.0" top="-10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label text="PG-13">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets left="20.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label text="3 hr 6 min">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets left="20.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label text="Action, Adventure, Science Fiction">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets left="20.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <HBox>
+                                       <children>
+                                          <ImageView fitHeight="20.0" fitWidth="42.0" pickOnBounds="true">
+                                             <image>
+                                                <Image url="@4k_vector.png" />
+                                             </image>
+                                             <HBox.margin>
+                                                <Insets left="20.0" right="5.0" />
+                                             </HBox.margin>
+                                          </ImageView>
+                                          <ImageView fitHeight="21.0" fitWidth="136.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@hdr_vector.PNG" />
+                                             </image>
+                                             <HBox.margin>
+                                                <Insets left="5.0" />
+                                             </HBox.margin>
+                                          </ImageView>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
