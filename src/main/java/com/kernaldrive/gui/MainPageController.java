@@ -36,8 +36,6 @@ public class MainPageController {
     private Font sideBarMenuFont = Font.loadFont(boldFontPath, 18);
     private Font titleFont = Font.loadFont(boldFontPath, 22);
 
-
-
     private Color LIGHTBLUE = Color.rgb(153, 201, 255);
     private Color SIDEBARCOLOR = Color.rgb(238, 243, 244);
     private Color DARKBLUE = Color.rgb(0, 84, 180);
@@ -72,6 +70,7 @@ ScrollPane contentPage;
 VBox contentContainer;
 
     public void setSideBar(double width, double height, HashMap<String, String> groups){
+        //screenWrapper.setVisible(false);
         screenWrapper.setPrefHeight(height);
         screenWrapper.setPrefWidth(width*6);
         sideBar.setPrefSize(width, height);
@@ -122,6 +121,7 @@ VBox contentContainer;
         Rectangle rectangle = makeRect(width/45, homeBtn.getHeight(), SIDEBARCOLOR);
         rectangle.setArcHeight(8);
         rectangle.setArcWidth(8);
+        //rectangle.setFill(Color.GREEN);
 
         HBox hbox = new HBox(b, rectangle);
         hbox.setId(menuText+" item");
@@ -194,6 +194,7 @@ VBox contentContainer;
             if (total > width) break;
         }
 
+
         VBox[] boxes = new VBox[movieRow];
         for (int i = 0; i < movieRow; i++){
             boxes[i] = new VBox();
@@ -204,6 +205,10 @@ VBox contentContainer;
         if (movies.size() % movieRow == 0) size = movies.size()/movieRow;
         else size = (movies.size()/movieRow) + 1;
 
+        HBox row = new HBox();
+        for (int i = 0; i < movieRow; i++){
+
+        }
         HBox[] rows = new HBox[size];
         for (int i = 0; i < rows.length; i++){
             rows[i] = new HBox();
@@ -238,9 +243,18 @@ VBox contentContainer;
         for (int i = 0; i < rows.length; i++){
             contentContainer.getChildren().add(rows[i]);
         }
-        fixBlurryText(contentPage);
-        System.out.println("True");
         //contentContainer.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+    }
+
+    public void fixPane(){
+        fixBlurryText(contentPage);
+        ObservableList<Node> sideBarChildren = sideBar.getChildren();
+        for (int i = 2; i < sideBarChildren.size(); i++){
+            HBox box = (HBox)sideBarChildren.get(i);
+            Button b = (Button)sideBarChildren.get(0);
+            Rectangle r = (Rectangle) box.getChildren().get(1);
+            r.setHeight(homeBtn.getHeight());
+        }
     }
 
     private void setTopBar(double width, double height){
