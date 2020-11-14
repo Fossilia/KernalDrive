@@ -31,6 +31,7 @@ public class TmdbMovieExtractor implements TmdbKeys{
         getProductionCompanies();
         getRuntime();
         getMpaaRating();
+        getTagline();
 
         return movie;
     }
@@ -79,6 +80,11 @@ public class TmdbMovieExtractor implements TmdbKeys{
 
     public void getRuntime(){
         movie.setRuntime(movieDb.getRuntime());
+    }
+
+    public void getTagline(){
+        movie.setTagline(movieDb.getTagline());
+        System.out.println(movieDb.getTagline());
     }
 
     public void getMpaaRating(){

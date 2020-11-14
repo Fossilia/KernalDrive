@@ -17,12 +17,14 @@ public class Movie extends Media {
     private String posterPath;
     private String bannerPath;
     private String runtime;
+    private String tagline;
+    private String year;
 
     private List<Genre> genres;
     private List<PersonCast> cast;
     private List<PersonCrew> crew;
 
-    private String posterBaseURL = "https://image.tmdb.org/t/p/w185";
+    private String posterBaseURL = "https://image.tmdb.org/t/p/original";
 
     public Movie(String filePath, int tmdbID){
         this.tmdbID = tmdbID;
@@ -66,6 +68,14 @@ public class Movie extends Media {
 
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
+        setYear(releaseDate.substring(0,4));
+    }
+    public void setYear(String year){
+        this.year = year;
+    }
+
+    public String getYear(){
+        return year;
     }
 
     public String getPosterPath() {
@@ -124,5 +134,13 @@ public class Movie extends Media {
         int hours = runtime / 60; //since both are ints, you get an int
         int minutes = runtime % 60;
         this.runtime = hours+" hr " + minutes + " min";
+    }
+
+    public String getTagline() {
+        return tagline;
+    }
+
+    public void setTagline(String tagline) {
+        this.tagline = tagline;
     }
 }
