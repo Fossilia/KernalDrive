@@ -15,21 +15,21 @@
    <children>
       <HBox fx:id="screenWrapper" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <VBox fx:id="sideBar" prefHeight="100.0" prefWidth="137.0" style="-fx-background-color: #eef3f4;">
+            <VBox fx:id="sideBar" prefHeight="100.0" prefWidth="137.0" style="-fx-background-color: #204766;">
                <children>
-                  <Button fx:id="userIconBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="128.0" style="-fx-background-color: #eef3f4;">
+                  <Button fx:id="userIconBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="128.0" style="-fx-background-color: #204766;">
                      <graphic>
-                        <FontIcon fx:id="userIcon" iconColor="#0054b4" iconLiteral="fa-user-circle-o" iconSize="20" />
+                        <FontIcon fx:id="userIcon" iconColor="#1A9EC5" iconLiteral="fa-user-circle-o" iconSize="20" />
                      </graphic>
                   </Button>
-                  <Label fx:id="userGreeting" alignment="CENTER" prefHeight="17.0" prefWidth="128.0" text="Hi, Wesam" textAlignment="CENTER" textFill="#0054b4">
+                  <Label fx:id="userGreeting" alignment="CENTER" prefHeight="17.0" prefWidth="128.0" text="Hi, Wesam" textAlignment="CENTER" textFill="#1A9EC5">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
                   <HBox fx:id="homeMenuItem" prefHeight="11.0" prefWidth="123.0">
                      <children>
-                        <Button fx:id="homeBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" style="-fx-background-color: #eef3f4;" text="Home" textFill="#0054b4">
+                        <Button fx:id="homeBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" style="-fx-background-color: #204766;" text="Home" textFill="#0054b4">
                            <graphic>
                               <FontIcon fx:id="homeIcon" iconColor="#0054b4" iconLiteral="fa-home" />
                            </graphic>
@@ -48,7 +48,7 @@
                   </VBox>
                   <ScrollPane fx:id="contentPage" prefHeight="410.0" prefWidth="479.0">
                      <content>
-                        <VBox fx:id="contentContainer" prefHeight="337.0" prefWidth="460.0" />
+                        <VBox fx:id="contentContainer" prefHeight="337.0" prefWidth="460.0" stylesheets="@MainPageStyle.css" />
                      </content>
                   </ScrollPane>
                </children>

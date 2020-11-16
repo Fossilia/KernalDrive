@@ -28,7 +28,7 @@ public class MainScreen {
         screenWidth = screenBounds.getWidth();
         screenHeight = screenBounds.getHeight();
         loader = new FXMLLoader();
-        loader.setLocation(new URL("file:///C:\\Users\\idree\\Documents\\Java Projects\\KernalDrive\\src\\main\\java\\com\\kernaldrive\\gui\\MainScreen.fxml"));
+        loader.setLocation(new URL("file:///C:\\Users\\ahmed\\IdeaProjects\\KernalDrive\\src\\main\\java\\com\\kernaldrive\\gui\\MainScreen.fxml"));
     }
 
     public void setScreen(){
