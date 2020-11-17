@@ -31,14 +31,14 @@ import java.util.HashMap;
 
 public class MainPageController {
     private String currMenuItem = "homeMenuItem";
-    private String boldFontPath = "file:C:\\Users\\idree\\Documents\\Java Projects\\KernalDrive\\varela\\Varela-Regular.otf";
-    private Font movieFont = Font.loadFont(boldFontPath, 13);
+    private String boldFontPath = "file:C:\\Users\\ahmed\\IdeaProjects\\KernalDrive\\varela\\Varela-Regular.otf";
+    private Font movieFont = Font.loadFont(boldFontPath, 20);
     private Font sideBarMenuFont = Font.loadFont(boldFontPath, 18);
     private Font titleFont = Font.loadFont(boldFontPath, 22);
 
     private Color LIGHTBLUE = Color.rgb(153, 201, 255);
-    private Color SIDEBARCOLOR = Color.rgb(238, 243, 244);
-    private Color DARKBLUE = Color.rgb(0, 84, 180);
+    private Color SIDEBARCOLOR = Color.rgb(32,71,102)  ;
+    private Color DARKBLUE = Color.rgb(26,158,197);
 
 @FXML
 HBox screenWrapper;
@@ -177,7 +177,8 @@ VBox contentContainer;
     public void setContent(double width, double height, HashMap<String, String> movies){
         mainContent.setPrefWidth(width);
         mainContent.setPrefHeight(height);
-
+        mainContent.setStyle("-fx-background-color: linear-gradient(to bottom left, rgba(40,43,82, 0.8) 20% , rgba(21,102,123, 0.8))");
+        //
         setTopBar(width, height);
 
         contentPage.setMaxWidth(width);
@@ -230,6 +231,7 @@ VBox contentContainer;
             moviePoster.setFitHeight((width / 7.5) * 1.5);
 
             Label movieName = new Label(movie);
+            movieName.setTextFill(Color.WHITE); //for the movie text
             movieName.setFont(movieFont);
             movieName.setMinHeight(Region.USE_PREF_SIZE);
             movieName.setPrefHeight(Region.USE_COMPUTED_SIZE);
@@ -262,8 +264,9 @@ VBox contentContainer;
         titleBar.setPrefWidth(width);
         topBar.setPadding(new Insets(height / 50, 0,0,0));
 
-        Button titleButton = makeButton("HOME", titleFont, DARKBLUE, Color.WHITE, (width / 5) * 4, new Insets(0,0,0,width/20));
+        Button titleButton = makeButton("HOME", titleFont, Color.WHITE, Color.WHITE, (width / 5) * 4, new Insets(0,0,0,width/20));
         titleButton.setAlignment(Pos.BASELINE_LEFT);
+        titleButton.setStyle("-fx-background-color: transparent");
         titleBar.getChildren().add(titleButton);
         //topBar.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
     }
