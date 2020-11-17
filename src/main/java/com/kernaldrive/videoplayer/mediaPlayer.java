@@ -11,19 +11,24 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
+import javax.swing.JToggleButton;
 
 import uk.co.caprica.vlcj.player.component.EmbeddedMediaPlayerComponent;
+import uk.co.caprica.vlcj.player.embedded.fullscreen.adaptive.AdaptiveFullScreenStrategy;
 
 public class mediaPlayer extends JFrame {
    private static final long serialVersionUID = 1L;
    private static final String TITLE = "My First Media Player";
-   private static String VIDEO_PATH = "Z:\\PhonyStark\\Star Wars Episode I The Phantom Menace (1999) BONUS DISC [1080p BluRay DD 2.0 REMUX AVC FGT]\\Complete Podrace Grid Sequence.mkv";
+   private static String VIDEO_PATH;//= "Z:\\PhonyStark\\Star Wars Episode I The Phantom Menace (1999) BONUS DISC [1080p BluRay DD 2.0 REMUX AVC FGT]\\Complete Podrace Grid Sequence.mkv";
    private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
    private JButton playButton, pauseButton;
+   private JToggleButton toggleButton;
 
-   public mediaPlayer() {
+   public mediaPlayer(String path) {
       //super(title);
       mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
+      mediaPlayerComponent.mediaPlayer().fullScreen().strategy(new AdaptiveFullScreenStrategy(this));
+      VIDEO_PATH = path;
    }
    public void initialize() {
       this.setBounds(100, 100, 600, 400);
@@ -43,7 +48,9 @@ public class mediaPlayer extends JFrame {
       playButton = new JButton("Play");
       controlsPane.add(playButton);   
       pauseButton = new JButton("Pause");
-      controlsPane.add(pauseButton); 
+      controlsPane.add(pauseButton);
+      toggleButton = new JToggleButton("Full Screen");
+      controlsPane.add(toggleButton);
       contentPane.add(controlsPane, BorderLayout.SOUTH);
       playButton.addActionListener(new ActionListener() {
          public void actionPerformed(ActionEvent e) {
@@ -55,6 +62,11 @@ public class mediaPlayer extends JFrame {
              mediaPlayerComponent.mediaPlayer().controls().pause();
           }
        });
+      toggleButton.addActionListener(new ActionListener() {
+         public void actionPerformed(ActionEvent e) {
+            mediaPlayerComponent.mediaPlayer().fullScreen().toggle();
+         }
+      });
       this.setContentPane(contentPane);
       this.setVisible(true);
    }
@@ -69,10 +81,10 @@ public class mediaPlayer extends JFrame {
       catch (Exception e) {
          System.out.println(e);
       }
-      mediaPlayer application = new mediaPlayer();
-      application.initialize(); 
-      application.setVisible(true);  
-      application.loadVideo(VIDEO_PATH);
+      //mediaPlayer application = new mediaPlayer();
+      initialize();
+      setVisible(true);
+      loadVideo(VIDEO_PATH);
    }
 }
 

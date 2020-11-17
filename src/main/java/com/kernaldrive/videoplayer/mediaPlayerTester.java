@@ -1,16 +1,17 @@
 package com.kernaldrive.videoplayer;
 
 
-import javafx.scene.control.Button;
-import javafx.scene.Scene;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+
 public class mediaPlayerTester extends Application {
-	private mediaPlayer mp = new mediaPlayer();
+	private mediaPlayer mp = new mediaPlayer("file path");
 	Button playBtn = new Button("call");
 	@Override
 	public void start(Stage primaryStage) throws Exception {
