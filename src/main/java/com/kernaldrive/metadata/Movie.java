@@ -4,6 +4,8 @@ import info.movito.themoviedbapi.model.Genre;
 import info.movito.themoviedbapi.model.people.PersonCast;
 import info.movito.themoviedbapi.model.people.PersonCrew;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class Movie extends Media {
@@ -30,6 +32,17 @@ public class Movie extends Media {
         this.tmdbID = tmdbID;
         this.filePath = filePath;
     }
+
+    public Movie(ResultSet data) throws SQLException {
+        tmdbID = data.getInt("tmdbID");
+        title = data.getString("title");
+        year = data.getString("year");
+        //genres = data.getString("genre");
+        posterPath = data.getString("cover");
+        filePath = data.getString("path");
+
+    }
+
     public int getTmdbID() {
         return tmdbID;
     }
