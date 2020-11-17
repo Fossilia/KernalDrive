@@ -31,7 +31,7 @@ import java.util.HashMap;
 
 public class MainPageController {
     private String currMenuItem = "homeMenuItem";
-    private String boldFontPath = "file:C:\\Users\\HP\\IdeaProjects\\untitled\\varela\\Varela-Regular.otf";
+    private String boldFontPath = "file:C:\\Users\\idree\\Documents\\Java Projects\\KernalDrive\\varela\\Varela-Regular.otf";
     private Font movieFont = Font.loadFont(boldFontPath, 13);
     private Font sideBarMenuFont = Font.loadFont(boldFontPath, 18);
     private Font titleFont = Font.loadFont(boldFontPath, 22);

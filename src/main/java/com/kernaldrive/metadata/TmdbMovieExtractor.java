@@ -25,9 +25,14 @@ public class TmdbMovieExtractor implements TmdbKeys{
         getReleaseDate();
         getGenre();
         getPosters();
+        getBanner();
         getCast();
         getCrew();
         getProductionCompanies();
+        getRuntime();
+        getMpaaRating();
+        getTagline();
+
         return movie;
     }
 
@@ -68,6 +73,21 @@ public class TmdbMovieExtractor implements TmdbKeys{
     private void getPosters(){
        // System.out.println("https://image.tmdb.org/t/p/original"+ movieDb.getPosterPath());
         movie.setPosterPath(movieDb.getPosterPath());
+    }
+    public void getBanner(){
+        movie.setBannerPath(movieDb.getBackdropPath());
+    }
+
+    public void getRuntime(){
+        movie.setRuntime(movieDb.getRuntime());
+    }
+
+    public void getTagline(){
+        movie.setTagline(movieDb.getTagline());
+        System.out.println(movieDb.getTagline());
+    }
+
+    public void getMpaaRating(){
     }
 
 }
