@@ -6,14 +6,27 @@ import com.kernaldrive.metadata.TmdbFilenameSearch;
 import com.kernaldrive.metadata.TmdbMovieExtractor;
 
 import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class MovieScanner {
 
     String[] validExtensions = {"mkv", "mp4", "webm", "avi"}; //hardcoded valid extension, there won't be many so thats why it isn't in a text file
     private TmdbFilenameSearch tmdbFilenameSearch;
     private TmdbMovieExtractor tmdbMovieExtractor;
+    DatabaseManager database = null;
 
     public MovieScanner(){
+
+        //initializing database
+        try {
+            database = new DatabaseManager();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
         try {
             tmdbFilenameSearch = new TmdbFilenameSearch();
             tmdbMovieExtractor = new TmdbMovieExtractor();
@@ -28,6 +41,7 @@ public class MovieScanner {
      * @param movieGroup movie group to be scanned
      */
     public void scan(MovieGroup movieGroup){
+
         for(File path: movieGroup.getPaths()) { //go through all the paths in the group
             scan(movieGroup, path); //scan the path
         }
@@ -44,7 +58,7 @@ public class MovieScanner {
                 for (String ext : validExtensions) { //go through all of the valid extensions
                     if (ext.toLowerCase().equals(getExtension(file))) { //check if the extensions are equal
                         //System.out.println(file.getName());
-                        addMovie(file, movieGroup);
+                        //addMovie(file, movieGroup);
                         break;
                     }
                 }
@@ -74,14 +88,31 @@ public class MovieScanner {
 
     public void addMovie(File file, MovieGroup movieGroup){
         try {
+            Movie movie = null;
+            int movieID;
+            ResultSet databaseMovieEntry = database.findMovie(file.getPath()); //attempt to find the movie in the database
 
-            int movieID = tmdbFilenameSearch.searchTmdb(file.getName());
-            Movie movie = tmdbMovieExtractor.extractMovieInfo(file.getPath(), movieID);
-            movieGroup.addMovie(movie);
+            if(databaseMovieEntry == null){ //if the movie that was scanned was not found in the database
+                movieID = tmdbFilenameSearch.searchTmdb(file.getName()); //find the id of the movie based on the filename
+                movie = tmdbMovieExtractor.extractMovieInfo(file.getPath(), movieID); //fetch movie info from id and create movie object
+                database.addMovie(movie); //add newly found movie to the database
+
+
+                //implement searching for tmdbID of current movie in database,
+                // if found, don't load file but load object from current database.
+                // If not found, load file
+
+                //must deal with deleting movies that were not scanned
+                //can mark each movie, check for unmarked movies, unmarking as you go. unmarked movies get deleted (all through sql database)
+            }
+            else{ //if it was found
+                movie = new Movie(databaseMovieEntry); //create a new movie object from the information in the database
+            }
+            movieGroup.addMovie(movie); //add movie created from either case into the movie group
+
         }
         catch (Exception e){
-            //System.out.println("Movie not found!");
+            e.printStackTrace();
         }
-        //System.out.println("------------------------------------------------------------------");
     }
 }
