@@ -4,12 +4,18 @@ package com.kernaldrive.gui.moviepage;
 import com.kernaldrive.gui.MainPageController;
 import com.kernaldrive.metadata.Movie;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.BlendMode;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.*;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.text.Font;
 import javafx.scene.paint.Color;
@@ -17,6 +23,7 @@ import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Screen;
 
 public class MoviePageController {
 
@@ -24,44 +31,55 @@ public class MoviePageController {
     private String fontPath = "file:C:\\Users\\idree\\Documents\\Java Projects\\KernalDrive\\varela\\Varela-Regular.otf";
     private Font movieFont = Font.loadFont(fontPath, 40);
 
-    @FXML
-    private VBox movieVBox;
-    @FXML
-    private ImageView posterImage;
-    @FXML
-    private ImageView bannerImageView;
-    @FXML
-    private Label titleLabel;
-    @FXML
-    private Label yearLabel;
-    @FXML
-    private Label runtimeLabel;
-    @FXML
-    private Label mpaaLabel;
-    @FXML
-    private Label genreLabel;
-    @FXML
-    private Label taglineLabel;
-    @FXML
-    private Label synopsisLabel;
-    @FXML
-    private ScrollPane scrollPane;
+    @FXML private ScrollPane scrollPane;
+    @FXML private Pane moviePane;
+    @FXML private VBox movieVBox;
+    @FXML private Canvas bannerCanvas;
+    @FXML private ImageView posterImage;
+    @FXML private ImageView bannerImageView;
+    @FXML private Label titleLabel;
+    @FXML private Label yearLabel;
+    @FXML private Label runtimeLabel;
+    @FXML private Label mpaaLabel;
+    @FXML private Label genreLabel;
+    @FXML private Label taglineLabel;
+    @FXML private Label synopsisLabel;
+
 
     public void setMovie(Movie movie){
         this.movie = movie;
     }
 
     public void setLabels(){
-
-        Stop[] stops = new Stop[] { new Stop(0, Color.web("#000428")), new Stop(1, Color.web("#004e92"))};
-        LinearGradient lg1 = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops);
-        //bannerImageView.setStyle("-fx-effect: innershadow(gaussian, , 1000, .5, 0, 0);");
-        //-fx-effect: innershadow(gaussian, #000428, 1000, .5, 0, 0);
-        //movieVBox.setStyle("-fx-background-color: linear-gradient(to right, #000428, #004e92)");
-
+        //scrollPane.setStyle("-fx-background: linear-gradient(to bottom left, rgba(40,43,82, 0.8) 20% , rgba(21,102,123, 0.8))");
+        //moviePane.setStyle("-fx-background-color: rgba(217, 217, 217, 0.2); -fx-background-radius: 10;");
+        Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+        double  screenWidth = screenBounds.getWidth();
+        double screenHeight = screenBounds.getHeight();
+        scrollPane.setPrefWidth(screenWidth-30);
         posterImage.setImage(new Image(movie.getPosterPath()));
-        //posterImage.setCache(true);
-        bannerImageView.setImage(new Image(movie.getBannerPath()));
+        Image img = new Image(movie.getBannerPath());
+        ImageView bannerI = new ImageView(img);
+        bannerI.setFitHeight(543);
+        bannerI.setFitWidth(1000);
+        bannerI.setSmooth(true);
+        WritableImage croppedImage = bannerI.snapshot(null, null);
+
+        int w = (int) croppedImage.getWidth();
+        int h = (int) croppedImage.getHeight();
+
+        bannerCanvas.setWidth(w);
+        bannerCanvas.setHeight(h);
+        GraphicsContext gc = bannerCanvas.getGraphicsContext2D();
+        gc.setEffect(new GaussianBlur(50));
+        gc.setFill(Color.BLACK);
+        gc.fillRect(40, 40, w-70, h-70);
+        gc.setEffect(null);
+        gc.setGlobalBlendMode(BlendMode.SRC_ATOP);
+        gc.drawImage(croppedImage, 0, 0);
+
+
+
         //bannerImageView.setCache(true);
         //fixBlurryText(scrollPane);
 
@@ -86,12 +104,6 @@ public class MoviePageController {
         synopsisLabel.setWrapText(true);
 
 
-
-    }
-
-    public void fixBlurryText(ScrollPane scrollPane) {
-        StackPane stackPane = (StackPane) scrollPane.lookup("ScrollPane .viewport");
-        stackPane.setCache(false);
     }
 
 
