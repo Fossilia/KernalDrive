@@ -16,7 +16,7 @@
    <children>
       <ScrollPane fx:id="scrollPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="1200.0">
          <content>
-            <Pane fx:id="moviePane" translateX="50.0" translateY="15.0" prefHeight="2000.0" prefWidth="1013.0">
+            <Pane fx:id="moviePane" prefHeight="2000.0" prefWidth="1013.0" translateX="50.0" translateY="15.0">
                <children>
                   <VBox fx:id="movieVBox" prefHeight="1900.0"> <!--style="-fx-background-color: #eef3f4; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, lightgrey, 10, 0.5, 0.0, 0.0);-->
                      <children>
@@ -49,7 +49,7 @@
                                           <Font name="Gadugi Bold" size="40.0" />
                                        </font>
                                        <VBox.margin>
-                                          <Insets left="20.0" />
+                                          <Insets left="20.0" top="-40" />
                                        </VBox.margin>
                                     </Label>
                                     <Label fx:id="yearLabel">
@@ -143,9 +143,31 @@
                               <Font size="15.0" />
                            </font>
                            <VBox.margin>
-                              <Insets left="80.0" top="10.0" />
+                              <Insets bottom="20.0" left="80.0" top="10.0" />
                            </VBox.margin>
                         </Label>
+                        <ScrollPane fx:id="castScrollPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="220.0" prefWidth="840.0">
+                           <content>
+                              <HBox fx:id="castHBox">
+                                 <children>
+                                 </children>
+                              </HBox>
+                           </content>
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="80.0" top="20.0" />
+                           </VBox.margin>
+                        </ScrollPane>
+                        <ScrollPane fx:id="crewScrollPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="220.0" prefWidth="840.0">
+                           <content>
+                              <HBox fx:id="crewHBox">
+                                 <children>
+                                 </children>
+                              </HBox>
+                           </content>
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="80.0" top="20.0" />
+                           </VBox.margin>
+                        </ScrollPane>
                      </children>
                   </VBox>
                </children>
