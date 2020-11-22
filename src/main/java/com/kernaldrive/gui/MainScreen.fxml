@@ -10,8 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<?import java.net.URL?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernaldrive.gui.MainPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@MainPageStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kernaldrive.gui.MainPageController">
    <children>
       <HBox fx:id="screenWrapper" prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -29,7 +28,7 @@
                   </Label>
                   <HBox fx:id="homeMenuItem" prefHeight="11.0" prefWidth="123.0">
                      <children>
-                        <Button fx:id="homeBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" style="-fx-background-color: #204766;" text="Home" textFill="#0054b4">
+                        <Button fx:id="homeBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onMouseClicked="#loadMovie" prefHeight="25.0" prefWidth="118.0" style="-fx-background-color: #204766;" text="Home" textFill="#0054b4">
                            <graphic>
                               <FontIcon fx:id="homeIcon" iconColor="#0054b4" iconLiteral="fa-home" />
                            </graphic>
@@ -48,7 +47,7 @@
                   </VBox>
                   <ScrollPane fx:id="contentPage" prefHeight="410.0" prefWidth="479.0">
                      <content>
-                        <VBox fx:id="contentContainer" prefHeight="337.0" prefWidth="460.0" stylesheets="@MainPageStyle.css" />
+                        <VBox fx:id="contentContainer" prefHeight="337.0" prefWidth="460.0" />
                      </content>
                   </ScrollPane>
                </children>
@@ -56,7 +55,4 @@
          </children>
       </HBox>
    </children>
-   <stylesheets>
-      <URL value="@MainPageStyle.css" />
-   </stylesheets>
 </AnchorPane>

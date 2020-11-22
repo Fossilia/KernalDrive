@@ -23,7 +23,6 @@ public class MainScreen {
     private Scene screenScene;
 
     public MainScreen() throws MalformedURLException {
-
         MediaManager manager = new MediaManager();
         movieGroups = manager.getMovieGroups();
 
