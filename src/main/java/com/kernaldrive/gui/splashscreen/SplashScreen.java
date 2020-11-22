@@ -5,21 +5,15 @@ import com.kernaldrive.metadata.MediaManager;
 import com.kernaldrive.metadata.MovieGroup;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import org.apache.commons.lang3.ObjectUtils;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -33,25 +27,38 @@ public class SplashScreen{
     private FXMLLoader loader;
 
     public SplashScreen(MediaManager manager, Stage primaryStage) throws MalformedURLException {
+
         this.manager = manager;
         this.primaryStage = primaryStage;
         Rectangle2D screenBounds = Screen.getPrimary().getBounds();
         screenWidth = screenBounds.getWidth();
-        screenHeight = screenBounds.getHeight() - 30;
+        screenHeight = screenBounds.getHeight();
         loader = new FXMLLoader();
         loader.setLocation(new URL("file:///C:\\Users\\HP\\IdeaProjects\\untitled\\src\\main\\java\\com\\kernaldrive\\gui\\splashscreen\\SplashScreen.fxml"));
     }
 
+    /**Sets up the splash screen by invoking the controller for this class. This controller
+     * takes the base splash screen and first adjusts it to fit the screen size through the
+     * setSplashScreen() method in the controller. After setting up the screen, loadResources()
+     * is called that loads the resources of the main page and controls the progress bar
+     **/
     public void setSplashScreen(MainScreen mainScreen) throws IOException {
         SplashScreenController splashScreenController = loader.getController();
         splashScreenController.setSplashScreen(screenWidth, screenHeight - 30, manager.getMovieGroups().get(0));
         loadResources(splashScreenController, mainScreen);
     }
 
+    /**
+     * This function controls the loading of the resources on the main page. We first need to load
+     * the scene from the mainScreen object because in order to add the content to the main page,
+     * the controller for the mainScreen needs to be invoked which can only be invoked once the
+     * scene is invoked. The advanceButton button is the button that appears after the progress bar
+     * is done loading. It then creates a thread that loads the main screen's resources in the background
+     * and updates the progress bar as the resources are loading
+     **/
     private void loadResources(SplashScreenController splashScreenController, MainScreen mainScreen) throws IOException {
         Scene mainScreenScene = mainScreen.getMainScreenScene();
         Button advanceButton = new Button("Advance to Home");
-        //splashScreen.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
         advanceButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -65,15 +72,17 @@ public class SplashScreen{
         new Thread(){
             public void run(){
                 ArrayList<MovieGroup> movieGroups = manager.getMovieGroups();
-                double eachToValue = 0.4 / movieGroups.size();
-                double interval = 3000 / movieGroups.size();
-                System.out.println(movieGroups.size());
+                //The overall increment after all the groups are scanned is 40% of the bar, so we divide it by
+                //the number of groups to get the increment of the progress bar after each group is scanned. The
+                //similar logic is employed with the time interval that each increment takes
+                double eachGroupIncrement = 0.4 / movieGroups.size();
+                double eachGroupIncrementTime = 3000 / movieGroups.size();
                 for (int i = 0; i < movieGroups.size(); i++){
                     manager.scanGroups(i);
-                    if (i + 1 == movieGroups.size()) splashScreenController.setProgressBar(movieGroups.get(i).getName(), movieGroups.get(i).getMovies().size(), eachToValue*(i + 1), interval, "Building Side Bar...", advanceButton);
-                    else splashScreenController.setProgressBar(movieGroups.get(i).getName(), movieGroups.get(i).getMovies().size(), eachToValue*(i + 1), interval, "Scanning " + movieGroups.get(i + 1).getName() + " Group...", advanceButton);
+                    if (i + 1 == movieGroups.size()) splashScreenController.setProgressBar(movieGroups.get(i).getName(), movieGroups.get(i).getMovies().size(), eachGroupIncrement*(i + 1), eachGroupIncrementTime, "Building Side Bar...", advanceButton);
+                    else splashScreenController.setProgressBar(movieGroups.get(i).getName(), movieGroups.get(i).getMovies().size(), eachGroupIncrement*(i + 1), eachGroupIncrementTime, "Scanning " + movieGroups.get(i + 1).getName() + " Group...", advanceButton);
                     try {
-                        Thread.sleep((long) interval);
+                        Thread.sleep((long) eachGroupIncrementTime);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

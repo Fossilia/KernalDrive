@@ -84,7 +84,6 @@ public class TmdbMovieExtractor implements TmdbKeys{
 
     public void getTagline(){
         movie.setTagline(movieDb.getTagline());
-        System.out.println(movieDb.getTagline());
     }
 
     public void getMpaaRating(){
