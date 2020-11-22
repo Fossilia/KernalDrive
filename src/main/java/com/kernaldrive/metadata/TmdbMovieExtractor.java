@@ -3,6 +3,9 @@ package com.kernaldrive.metadata;
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.model.MovieDb;
+import info.movito.themoviedbapi.model.people.PersonCredits;
+
+import java.util.List;
 
 
 public class TmdbMovieExtractor implements TmdbKeys{
