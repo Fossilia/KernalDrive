@@ -1,5 +1,6 @@
 package com.kernaldrive.gui;
 
+import com.kernaldrive.filescanning.DatabaseManager;
 import com.kernaldrive.metadata.*;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -11,6 +12,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -27,7 +29,7 @@ public class MainScreen{
         screenWidth = screenBounds.getWidth();
         screenHeight = screenBounds.getHeight();
         loader = new FXMLLoader();
-        loader.setLocation(new URL("file:///C:\\Users\\HP\\IdeaProjects\\untitled\\src\\main\\java\\com\\kernaldrive\\gui\\MainScreen.fxml"));
+        loader.setLocation(new URL("file:///C:\\Users\\ahmed\\IdeaProjects\\KernalDrive\\src\\main\\java\\com\\kernaldrive\\gui\\MainScreen.fxml"));
     }
 
     public void setSideBar(MediaManager manager){

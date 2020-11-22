@@ -4,16 +4,32 @@ import com.kernaldrive.metadata.Movie;
 import com.kernaldrive.metadata.MovieGroup;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import com.fasterxml.jackson.databind.introspect.BasicClassIntrospector;
+import com.kernaldrive.gui.moviepage.MoviePageController;
+import com.kernaldrive.metadata.Movie;
+import com.kernaldrive.metadata.TmdbFilenameSearch;
+import com.kernaldrive.metadata.TmdbMovieExtractor;
+import com.sun.nio.sctp.PeerAddressChangeNotification;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -21,6 +37,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import org.kordamp.ikonli.javafx.FontIcon;
 
+import javax.swing.*;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +52,8 @@ public class MainPageController {
     private Task<Void> searchTask;
 
     private String currMenuItem = "homeMenuItem";
-    private String boldFontPath = "file:C:\\Users\\HP\\IdeaProjects\\untitled\\varela\\Varela-Regular.otf";
-    private Font movieFont = Font.loadFont(boldFontPath, 13);
+    private String boldFontPath = "file:C:\\Users\\ahmed\\IdeaProjects\\KernalDrive\\varela\\Varela-Regular.otf";
+    private Font movieFont = Font.loadFont(boldFontPath, 20);
     private Font sideBarMenuFont = Font.loadFont(boldFontPath, 18);
     private Font titleFont = Font.loadFont(boldFontPath, 22);
 
@@ -320,5 +339,24 @@ VBox scrollPaneVBox;
         r.setWidth(width);
         r.setHeight(height);
         return r;
+    }
+
+    @FXML
+    private void loadMovie() throws Exception {
+        System.out.println("1");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(new URL("file:///C:\\Users\\idree\\Documents\\Java Projects\\KernalDrive\\src\\main\\java\\com\\kernaldrive\\gui\\moviepage\\MoviePageTest.fxml"));
+        //contentContainer = loader.load();
+        //contentContainer.getScene().setRoot(loader.load());
+        mainContent.getChildren().removeAll(contentPage);
+        mainContent.getChildren().add(loader.load());
+        MoviePageController moviePageController = loader.getController();
+        TmdbFilenameSearch tmdbFilenameSearch = new TmdbFilenameSearch();
+        TmdbMovieExtractor tmdbMovieExtractor = new TmdbMovieExtractor();
+        int movieID = tmdbFilenameSearch.searchTmdb("Star wars revenge of the sith 2005");
+        Movie movie = tmdbMovieExtractor.extractMovieInfo("", movieID);
+        moviePageController.setMovie(movie);
+        moviePageController.setLabels();
+        System.out.println("2");
     }
 }
