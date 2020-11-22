@@ -26,7 +26,7 @@ public class Movie extends Media {
     private List<PersonCast> cast;
     private List<PersonCrew> crew;
 
-    private String posterBaseURL = "https://image.tmdb.org/t/p/w342";
+    private String posterBaseURL = "https://image.tmdb.org/t/p/w185";
 
     public Movie(String filePath, int tmdbID){
         this.tmdbID = tmdbID;
