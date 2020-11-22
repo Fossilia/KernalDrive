@@ -3,8 +3,8 @@ package com.kernaldrive.gui.moviepage;
 
 import com.kernaldrive.gui.MainPageController;
 import com.kernaldrive.metadata.Movie;
-import info.movito.themoviedbapi.model.people.PersonCast;
-import info.movito.themoviedbapi.model.people.PersonCrew;
+import info.movito.themoviedbapi.model.people.*;
+
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,6 +13,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
@@ -36,8 +37,9 @@ public class MoviePageController {
     private Movie movie;
     private String fontPath = "file:C:\\Users\\idree\\Documents\\Java Projects\\KernalDrive\\varela\\Varela-Regular.otf";
     private Font movieFont = Font.loadFont(fontPath, 40);
-    private ArrayList<ImageView> castImages;
-    private ArrayList<ImageView> crewImages;
+    private String defaultPersonImage = "file:cast.jpg";
+    private ArrayList<ImageView> castImages = new ArrayList<>();
+    private ArrayList<ImageView> crewImages = new ArrayList<>();
     private List<PersonCast> cast;
     private List<PersonCrew> crew;
 
@@ -54,6 +56,8 @@ public class MoviePageController {
     @FXML private Label genreLabel;
     @FXML private Label taglineLabel;
     @FXML private Label synopsisLabel;
+    @FXML private ScrollPane castScrollPane;
+    @FXML private ScrollPane crewScrollPane;
     @FXML private HBox castHBox;
     @FXML private HBox crewHBox;
 
@@ -113,14 +117,16 @@ public class MoviePageController {
         synopsisLabel.setText(movie.getOverview());
         synopsisLabel.setMaxWidth(800);
         synopsisLabel.setWrapText(true);
+
+        castScrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
+        crewScrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
+
+
         loadCastCrew();
-
-
     }
 
     public void loadCastCrew(){
-        castImages = new ArrayList<>();
-        crewImages = new ArrayList<>();
+
         for(int i=0; i<cast.size(); i++){
             VBox test = addCast(cast.get(i));
             castHBox.getChildren().addAll(test);
@@ -153,42 +159,39 @@ public class MoviePageController {
     }
 
     public VBox addCast(PersonCast person){
-        VBox test = new VBox();
-        test.setPadding(new Insets(10,10,10,10));
-        Image personImg = new Image("file:C:\\Users\\idree\\Documents\\Java Projects\\KernalDrive\\cast.jpg");
-        ImageView personImage = new ImageView(personImg);
-        //personImage.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
+        VBox creditVBox = new VBox();
+        creditVBox.setPadding(new Insets(10,10,10,10));
+        ImageView personImage = createCreditsImage();
         castImages.add(personImage);
-        personImage.setFitWidth(100);
-        personImage.setPreserveRatio(true);
-        Label personName = new Label(person.getName());
-        personName.setMaxWidth(100);
-        personName.setAlignment(Pos.CENTER);
-        Label personRole = new Label(person.getCharacter());
-        personRole.setMaxWidth(100);
-        personRole.setAlignment(Pos.CENTER);
-        test.getChildren().addAll(personImage, personName, personRole);
-        return test;
+        Label personName = createCreditsLabel(person.getName());
+        Label personRole = createCreditsLabel(person.getCharacter());
+        creditVBox.getChildren().addAll(personImage, personName, personRole);
+        return creditVBox;
     }
 
     public VBox addCrew(PersonCrew person){
         VBox test = new VBox();
         test.setPadding(new Insets(10,10,10,10));
-        Image personImg = new Image("file:C:\\Users\\idree\\Documents\\Java Projects\\KernalDrive\\cast.jpg");
-        ImageView personImage = new ImageView(personImg);
-        //personImage.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
+        ImageView personImage = createCreditsImage();
         crewImages.add(personImage);
-        personImage.setFitWidth(100);
-        personImage.setPreserveRatio(true);
-        Label personName = new Label(person.getName());
-        personName.setMaxWidth(100);
-        personName.setAlignment(Pos.CENTER);
-        Label personRole = new Label(person.getDepartment());
-        personRole.setMaxWidth(100);
-        personRole.setAlignment(Pos.CENTER);
+        Label personName = createCreditsLabel(person.getName());
+        Label personRole = createCreditsLabel(person.getDepartment());
         test.getChildren().addAll(personImage, personName, personRole);
         return test;
     }
 
+    public ImageView createCreditsImage(){
+        ImageView creditImage = new ImageView(new Image("file:cast.jpg"));
+        //personImage.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
+        creditImage.setFitWidth(100);
+        creditImage.setPreserveRatio(true);
+        return creditImage;
+    }
 
+    public Label createCreditsLabel(String credit){
+        Label creditText = new Label(credit);
+        creditText.setMaxWidth(100);
+        creditText.setAlignment(Pos.CENTER);
+        return creditText;
+    }
 }

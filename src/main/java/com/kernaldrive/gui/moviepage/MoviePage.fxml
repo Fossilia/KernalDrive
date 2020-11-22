@@ -146,7 +146,7 @@
                               <Insets bottom="20.0" left="80.0" top="10.0" />
                            </VBox.margin>
                         </Label>
-                        <ScrollPane fx:id="castScrollPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="220.0" prefWidth="840.0">
+                        <ScrollPane fx:id="castScrollPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="220.0" prefWidth="840.0" style="-fx-background-color:transparent;">
                            <content>
                               <HBox fx:id="castHBox">
                                  <children>
@@ -154,10 +154,10 @@
                               </HBox>
                            </content>
                            <VBox.margin>
-                              <Insets bottom="20.0" left="80.0" top="20.0" />
+                              <Insets bottom="10.0" left="80.0" top="90.0" />
                            </VBox.margin>
                         </ScrollPane>
-                        <ScrollPane fx:id="crewScrollPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="220.0" prefWidth="840.0">
+                        <ScrollPane fx:id="crewScrollPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="220.0" prefWidth="840.0" style="-fx-background-color:transparent;">
                            <content>
                               <HBox fx:id="crewHBox">
                                  <children>

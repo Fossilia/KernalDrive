@@ -56,7 +56,7 @@ public class MoviePageTester extends Application {
         MoviePageController moviePageController = loader.getController();
         TmdbFilenameSearch tmdbFilenameSearch = new TmdbFilenameSearch();
         TmdbMovieExtractor tmdbMovieExtractor = new TmdbMovieExtractor();
-        int movieID = tmdbFilenameSearch.searchTmdb("star wars clone wars 2008");
+        int movieID = tmdbFilenameSearch.searchTmdb("You were never lovelier 1942");
         Movie movie = tmdbMovieExtractor.extractMovieInfo("", movieID);
         moviePageController.setMovie(movie);
         moviePageController.setLabels();
