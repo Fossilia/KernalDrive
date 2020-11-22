@@ -34,13 +34,14 @@ public class Movie extends Media {
     }
 
     public Movie(ResultSet data) throws SQLException {
-        tmdbID = data.getInt("tmdbID");
-        title = data.getString("title");
-        year = data.getString("year");
-        //genres = data.getString("genre");
-        posterPath = data.getString("cover");
-        filePath = data.getString("path");
-
+        //if(data.next()){
+            tmdbID = data.getInt(2);
+            title = data.getString(3);
+            year = data.getString(4);
+            //genres = data.getString("genre");
+            posterPath = data.getString(6);
+            filePath = data.getString(7);
+        //}
     }
 
     public int getTmdbID() {

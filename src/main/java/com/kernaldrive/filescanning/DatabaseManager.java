@@ -28,14 +28,28 @@ public class DatabaseManager {
             getConnection();
         }
 
-        Statement state = con.createStatement();
-        ResultSet res = state.executeQuery("SELECT * FROM movies WHERE path = "+path);
-        if(res!=null){
+        PreparedStatement state = con.prepareStatement("SELECT * FROM movies WHERE path = ?");
+        state.setString(1, path);
+        ResultSet res = state.executeQuery();
+        if(res.next()){
+            PreparedStatement state2 = con.prepareStatement("UPDATE movies SET scanned = 1 WHERE path = ?");
+            state2.setString(1, path);
+            state2.executeUpdate();
             return res;
         }
         else{
             return null;
         }
+    }
+
+    public void clearDatabaseScans() throws SQLException, ClassNotFoundException {
+        if (con == null) {
+            getConnection();
+        }
+
+        Statement state = con.createStatement();
+        state.execute("UPDATE movies SET scanned = 0");
+
     }
 
     private void getConnection() throws ClassNotFoundException, SQLException {
@@ -54,7 +68,7 @@ public class DatabaseManager {
                 System.out.println("Building the user table with prepopulated values.");
                 //building table
                 Statement state2 = con.createStatement();
-                state2.execute("CREATE TABLE  movies(id integer, tmdbID integer, title varchar(60), year varchar(60), genre varchar(60), cover varchar(60), path varchar(300), primary key(id));");
+                state2.execute("CREATE TABLE  movies(id integer, tmdbID integer, title varchar(60), year varchar(60), genre varchar(60), cover varchar(60), path varchar(300), scanned integer, primary key(id));");
 
             }
         }
@@ -64,13 +78,14 @@ public class DatabaseManager {
         if(con == null){
             getConnection();
         }
-        PreparedStatement prep = con.prepareStatement(("INSERT  INTO movies values(?, ?, ?, ?, ?, ?, ?)"));
+        PreparedStatement prep = con.prepareStatement(("INSERT  INTO movies values(?, ?, ?, ?, ?, ?, ?, ?)"));
         prep.setInt(2, movie.getTmdbID());
         prep.setString(3, movie.getTitle());
         prep.setString(4, movie.getYear());
         prep.setString(5, "WIP");
         prep.setString(6, movie.getPosterPath());
-        prep.setString(6,  movie.getFilePath());
+        prep.setString(7,  movie.getFilePath());
+        prep.setInt(8,  1);
         prep.execute();
     }
 }
