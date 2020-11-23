@@ -96,9 +96,14 @@ public class Movie extends Media {
         return posterPath;
     }
 
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterBaseURL + posterPath;
+    public String getPosterURL() {
+        return posterBaseURL + posterPath;
     }
+
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+    }
+
 
     public List<Genre> getGenres() {
         return genres;

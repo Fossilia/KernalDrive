@@ -22,7 +22,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 
 public class SplashScreenController {
-    private String boldFontPath = "file:C:\\Users\\HP\\IdeaProjects\\untitled\\varela\\Varela-Regular.otf";
+    private String boldFontPath = "file:varela\\Varela-Regular.otf";
     private Font loadFont = Font.loadFont(boldFontPath, 22);
     private Font progressFont = Font.loadFont(boldFontPath, 18);
     private ProgressBar progressBar;

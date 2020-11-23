@@ -20,6 +20,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +59,7 @@ public class GroupScreen {
         this.movieGroups = movieGroups;
     }
 
-    public ArrayList<HBox> getContent(double width, double height, Font movieFont, ObservableList<Node> visibleNodes){
+    public ArrayList<HBox> getContent(double width, double height, Font movieFont, ObservableList<Node> visibleNodes) throws FileNotFoundException {
         moviesPerRow = 0;
         double total = (width / 40) * 2;
         while (true) {
@@ -198,13 +200,13 @@ public class GroupScreen {
         return false;
     }
 
-    private VBox addMovieBox(double width, double height, Font movieFont, Movie movie){
+    private VBox addMovieBox(double width, double height, Font movieFont, Movie movie) throws FileNotFoundException {
         VBox movieBox = new VBox();
         movieBox.setMaxWidth(width / 7.5);
         movieBox.setPadding(new Insets(0, width / 40, 0, 0));
 
         String imagePath = movie.getPosterPath();
-        ImageView moviePoster = new ImageView(new Image(imagePath));
+        ImageView moviePoster = new ImageView(new Image(new FileInputStream(imagePath)));
         moviePoster.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0,0,0.8,0), 30, 0, 0, 0)");
         moviePoster.setFitWidth((width / 7.5));
         moviePoster.setFitHeight((width / 7.5) * 1.5);

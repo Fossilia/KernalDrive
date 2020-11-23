@@ -5,6 +5,11 @@ import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.model.MovieDb;
 import info.movito.themoviedbapi.model.people.PersonCredits;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 
@@ -74,8 +79,13 @@ public class TmdbMovieExtractor implements TmdbKeys{
     }
 
     private void getPosters(){
-       // System.out.println("https://image.tmdb.org/t/p/original"+ movieDb.getPosterPath());
-        movie.setPosterPath(movieDb.getPosterPath());
+        //System.out.println("https://image.tmdb.org/t/p/original"+ movieDb.getPosterPath());
+        try(InputStream in = new URL("https://image.tmdb.org/t/p/w185"+ movieDb.getPosterPath()).openStream()){
+            Files.copy(in, Paths.get("C:/Users/Faisal/Documents/GitHub/KernalDrive-v2/posters/"+movie.getTmdbID()+".jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        movie.setPosterPath("posters/"+movie.getTmdbID()+".jpg");
     }
     public void getBanner(){
         movie.setBannerPath(movieDb.getBackdropPath());
@@ -87,6 +97,7 @@ public class TmdbMovieExtractor implements TmdbKeys{
 
     public void getTagline(){
         movie.setTagline(movieDb.getTagline());
+        //System.out.println(movieDb.getTagline());
     }
 
     public void getMpaaRating(){

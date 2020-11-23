@@ -34,7 +34,7 @@ public class SplashScreen{
         screenWidth = screenBounds.getWidth();
         screenHeight = screenBounds.getHeight();
         loader = new FXMLLoader();
-        loader.setLocation(new URL("file:///C:\\Users\\HP\\IdeaProjects\\untitled\\src\\main\\java\\com\\kernaldrive\\gui\\splashscreen\\SplashScreen.fxml"));
+        loader.setLocation(new URL("file:///C:\\Users\\Faisal\\Documents\\GitHub\\KernalDrive-v2\\src\\main\\java\\com\\kernaldrive\\gui\\splashscreen\\SplashScreen.fxml"));
     }
 
     /**Sets up the splash screen by invoking the controller for this class. This controller
@@ -87,11 +87,14 @@ public class SplashScreen{
                         e.printStackTrace();
                     }
                 }
+                    long startTime = System.nanoTime();
                     mainScreen.setSideBar(manager);
                     splashScreenController.setProgressBar("", -1, 0.6, 1000, "Building Content Page...", advanceButton);
                     mainScreen.setContentPage();
                     splashScreenController.setProgressBar("", -1, 1.0, 3000, "Completed!", advanceButton);
-
+                    long endTime = System.nanoTime();
+                    long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
+                    System.out.println("TOTAL GUI SCAN TIME WAS: "+((float)duration/1000000000)+" SECONDS");
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {

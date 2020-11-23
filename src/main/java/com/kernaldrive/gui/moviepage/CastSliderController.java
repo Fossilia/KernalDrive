@@ -66,7 +66,7 @@ public class CastSliderController{
     public VBox addPerson(PersonCast person){
         VBox test = new VBox();
         test.setPadding(new Insets(10,10,10,10));
-        Image personImg = new Image("file:C:\\Users\\idree\\Documents\\Java Projects\\KernalDrive\\cast.jpg");
+        Image personImg = new Image("file:C:\\Users\\Faisal\\Documents\\Github\\KernalDrive\\cast.jpg");
         ImageView personImage = new ImageView(personImg);
         //personImage.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
         images.add(personImage);

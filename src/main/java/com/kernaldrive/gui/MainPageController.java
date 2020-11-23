@@ -35,9 +35,13 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import org.kordamp.ikonli.Ikonli;
 import org.kordamp.ikonli.javafx.FontIcon;
+import org.w3c.dom.css.Rect;
 
 import javax.swing.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -52,8 +56,8 @@ public class MainPageController {
     private Task<Void> searchTask;
 
     private String currMenuItem = "homeMenuItem";
-    private String boldFontPath = "file:C:\\Users\\ahmed\\IdeaProjects\\KernalDrive\\varela\\Varela-Regular.otf";
-    private Font movieFont = Font.loadFont(boldFontPath, 20);
+    private String boldFontPath = "file:///C:\\Users\\Faisal\\Documents\\GitHub\\KernalDrive-v2\\varela\\Varela-Regular.otf";
+    private Font movieFont = Font.loadFont(boldFontPath, 13);
     private Font sideBarMenuFont = Font.loadFont(boldFontPath, 18);
     private Font titleFont = Font.loadFont(boldFontPath, 22);
 
@@ -220,12 +224,16 @@ VBox scrollPaneVBox;
                     rectangle.setFill(DARKBLUE);
                     currMenuItem = hBox.getId();
                     menuPos = pos;
-                    addContent();
+                    try {
+                        addContent();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
     }
 
-    public void setContent(){
+    public void setContent() throws FileNotFoundException {
         mainContent.setPrefWidth(contentPageWidth);
         mainContent.setPrefHeight(contentPageHeight);
         mainContent.setStyle("-fx-background-color: linear-gradient(to bottom left, rgba(40,43,82, 0.8) 20% , rgba(21,102,123, 0.8))");
@@ -238,7 +246,7 @@ VBox scrollPaneVBox;
 
     }
         //contentContainer.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
-    public void addContent(){
+    public void addContent() throws FileNotFoundException {
         setTopBar(groupScreens[menuPos].getTitle());
         scrollPaneVBox.getChildren().clear();
         ArrayList<HBox> pageSections = groupScreens[menuPos].getContent(contentPageWidth, contentPageHeight, movieFont, visibleNodes);
@@ -341,11 +349,11 @@ VBox scrollPaneVBox;
         return r;
     }
 
-    @FXML
+    /*@FXML
     private void loadMovie() throws Exception {
         System.out.println("1");
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(new URL("file:///C:\\Users\\idree\\Documents\\Java Projects\\KernalDrive\\src\\main\\java\\com\\kernaldrive\\gui\\moviepage\\MoviePageTest.fxml"));
+        loader.setLocation(new URL("file:///C:\\Users\\Faisal\\Documents\\Github\\KernalDrive\\src\\main\\java\\com\\kernaldrive\\gui\\moviepage\\MoviePageTest.fxml"));
         //contentContainer = loader.load();
         //contentContainer.getScene().setRoot(loader.load());
         mainContent.getChildren().removeAll(contentPage);
@@ -358,5 +366,5 @@ VBox scrollPaneVBox;
         moviePageController.setMovie(movie);
         moviePageController.setLabels();
         System.out.println("2");
-    }
+    }*/
 }
