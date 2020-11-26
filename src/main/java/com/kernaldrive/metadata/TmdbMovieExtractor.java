@@ -81,7 +81,7 @@ public class TmdbMovieExtractor implements TmdbKeys{
     private void getPosters(){
         //System.out.println("https://image.tmdb.org/t/p/original"+ movieDb.getPosterPath());
         try(InputStream in = new URL("https://image.tmdb.org/t/p/w185"+ movieDb.getPosterPath()).openStream()){
-            Files.copy(in, Paths.get("C:\\Users\\HP\\IdeaProjects\\untitled\\posters\\"+movie.getTmdbID()+".jpg"));
+            Files.copy(in, Paths.get("C:/Users/Faisal/Documents/GitHub/KernalDrive-v2/posters/"+movie.getTmdbID()+".jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
