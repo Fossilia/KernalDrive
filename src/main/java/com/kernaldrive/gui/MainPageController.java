@@ -3,6 +3,8 @@ package com.kernaldrive.gui;
 import com.kernaldrive.metadata.Movie;
 import com.kernaldrive.metadata.MovieGroup;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import com.fasterxml.jackson.databind.introspect.BasicClassIntrospector;
 import com.kernaldrive.gui.moviepage.MoviePageController;
@@ -28,13 +30,17 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.skin.ComboBoxListViewSkin;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.util.Callback;
 import org.kordamp.ikonli.Ikonli;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.w3c.dom.css.Rect;
@@ -56,14 +62,14 @@ public class MainPageController {
     private Task<Void> searchTask;
 
     private String currMenuItem = "homeMenuItem";
-    private String boldFontPath = "file:///C:\\Users\\Faisal\\Documents\\GitHub\\KernalDrive-v2\\varela\\Varela-Regular.otf";
-    private Font movieFont = Font.loadFont(boldFontPath, 13);
+    private String boldFontPath = "file:varela\\Varela-Regular.otf";
+    private Font movieFont = Font.loadFont(boldFontPath, 16);
     private Font sideBarMenuFont = Font.loadFont(boldFontPath, 18);
     private Font titleFont = Font.loadFont(boldFontPath, 22);
 
     private Color LIGHTBLUE = Color.rgb(153, 201, 255);
     private Color SIDEBARCOLOR = Color.rgb(32, 71, 102);
-    private Color DARKBLUE = Color.rgb(26, 158, 197);
+        private Color DARKBLUE = Color.rgb(26, 158, 197);
     private Button titleButton;
 
 @FXML
@@ -91,11 +97,23 @@ VBox topBar;
 @FXML
 HBox mainTopBar;
 @FXML
+Button pageTitleButton;
+@FXML
+VBox searchBarVBox;
+@FXML
+Button searchBarTopMargin;
+@FXML
+HBox searchBarHBox;
+@FXML
 Button searchBarIcon;
 @FXML
-TextField searchBarInput;
+ComboBox comboBoxSearchBar;
 @FXML
-HBox titleBar;
+Button recommendedButton;
+@FXML
+Button libraryButton;
+@FXML
+Button topBarMiddleMargin;
 @FXML
 ScrollPane contentPageScrollPane;
 @FXML
@@ -136,7 +154,7 @@ VBox scrollPaneVBox;
         homeRect.setHeight(homeBtn.getHeight());
         addEventListener(menuPos, homeMenuItem, homeBtn, homeIcon, homeRect);
         groupScreens[menuPos].setMovieGroups(groups);
-        groupScreens[menuPos].setTitle("HOME");
+        groupScreens[menuPos].setTitle("Home");
 
         //The remaining code in this function adds each of the side bar menu items
         ObservableList<Node> boxChildren = sideBar.getChildren();
@@ -250,7 +268,7 @@ VBox scrollPaneVBox;
         setTopBar(groupScreens[menuPos].getTitle());
         scrollPaneVBox.getChildren().clear();
         ArrayList<HBox> pageSections = groupScreens[menuPos].getContent(contentPageWidth, contentPageHeight, movieFont, visibleNodes);
-        for (int i = 0; i < pageSections.size(); i++){
+        for (int i = 0; i < pageSections.size(); i++) {
             scrollPaneVBox.getChildren().add(pageSections.get(i));
         }
 
@@ -267,6 +285,7 @@ VBox scrollPaneVBox;
         contentPageScrollPane.hvalueProperty().addListener((obs) -> {
             groupScreens[menuPos].addRows(contentPageWidth, contentPageHeight, movieFont, visibleNodes, contentPageScrollPane, scrollPaneVBox, b);
         });
+
     }
 
     public void fixPane(){
@@ -278,27 +297,107 @@ VBox scrollPaneVBox;
             Rectangle r = (Rectangle) box.getChildren().get(1);
             r.setHeight(homeBtn.getHeight());
         }
-        searchBarInput.setMinHeight(searchBarIcon.getHeight());
+        searchBarVBox.setMinWidth(searchBarIcon.getWidth() + (contentPageWidth / 5));
+        //searchBarVBox.setMaxHeight(comboBoxSearchBar.getHeight());
+        searchBarHBox.setMinWidth(searchBarIcon.getWidth() + (contentPageWidth / 5));
+        searchBarHBox.setMaxHeight(comboBoxSearchBar.getHeight());
+        searchBarHBox.setPadding(new Insets(2.5, 3, 2.5, 3)); //margins around the whole grid;
+        //searchBarTopMargin.setMinHeight((pageTitleButton.getHeight() - searchBarHBox.getHeight()) / 2);
+        recommendedButton.setMinHeight(pageTitleButton.getHeight());
+        //recommendedButton.setFont(movieFont);
+        //recommendedButton.setPadding(new Insets());
+        libraryButton.setMinHeight(pageTitleButton.getHeight());
+        System.out.println(contentPageWidth +  ", " + pageTitleButton.getWidth() + ", " + recommendedButton.getWidth() + ", " + libraryButton.getWidth());
+        topBarMiddleMargin.setMinWidth(contentPageWidth - (pageTitleButton.getWidth()+recommendedButton.getWidth()+libraryButton.getWidth() + (contentPageWidth / 3.8)));
+        //libraryButton.setFont(movieFont);
+        comboBoxSearchBar.setMinWidth(contentPageWidth / 5);
+        comboBoxSearchBar.getEditor().setMinWidth(contentPageWidth/5);
+        //comboBoxSearchBar.setMinHeight(searchBarIcon.getHeight());
     }
 
-    private void setTopBar(String title){
+    private <T> void setTopBar(String title){
         topBar.setPrefWidth(contentPageWidth);
         mainTopBar.setPrefWidth(contentPageWidth);
-        titleBar.setPrefWidth(contentPageWidth);
-        topBar.setPadding(new Insets(contentPageHeight / 50, 0,0,0));
-        searchBarIcon.setFont(titleFont);
-        searchBarIcon.setPadding(new Insets(0,0,0,contentPageWidth/20));
-        searchBarInput.setMinHeight(searchBarIcon.getHeight());
+        mainTopBar.setPadding(new Insets(15,0,0,0));
+        //pageTitleButton.setMinHeight(contentPageHeight/20);
+        pageTitleButton.setText(title);
+        //pageTitleButton.setFont(sideBarMenuFont);
+        //topBar.setPadding(new Insets(contentPageHeight / 50, 0,0,0));
+        //comboBoxSearchBar.getEditor().setPrefWidth(contentPageWidth/2);
+        ComboBoxListViewSkin<T> comboBoxListViewSkin = new ComboBoxListViewSkin<T>(comboBoxSearchBar);
+        comboBoxListViewSkin.getPopupContent().addEventFilter(KeyEvent.ANY, (event) -> {
+            if( event.getCode() == KeyCode.SPACE ) {
+                event.consume();
+            }
+        });
+        comboBoxSearchBar.setSkin(comboBoxListViewSkin);
         configureSearchBar();
         titleButton = makeButton(title, titleFont, DARKBLUE, Color.WHITE, (contentPageWidth / 5) * 4, new Insets(0,0,0,contentPageWidth/20));
         titleButton.setAlignment(Pos.BASELINE_LEFT);
         titleButton.setStyle("-fx-background-color: transparent");
-        titleBar.getChildren().add(titleButton);
         //topBar.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     private void configureSearchBar(){
-        searchBarInput.textProperty().addListener((observable, oldValue, newValue) -> {
+        comboBoxSearchBar.getEditor().textProperty().addListener(new ChangeListener<String>() {
+
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                                String oldValue, String newValue) {
+                comboBoxSearchBar.getItems().clear();
+                comboBoxSearchBar.hide(); //before you set new visibleRowCount value
+                if (!newValue.isEmpty()) {
+                    ArrayList<ArrayList<String>> searchResults = groupScreens[0].matchMoviesBySearch(newValue);
+                    ArrayList<String> movieTitles = searchResults.get(0);
+                    ArrayList<String> moviePosters = searchResults.get(1);
+                    comboBoxSearchBar.getItems().addAll(movieTitles);
+                    comboBoxSearchBar.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+                        @Override
+                        public ListCell<String> call(ListView<String> p) {
+                            final ListCell<String> cell = new ListCell<String>() {
+                                {
+                                    super.setMinWidth(contentPageWidth/7);
+                                }
+                                @Override
+                                protected void updateItem(String item, boolean empty) {
+                                    super.updateItem(item, empty);
+                                    setText(item);
+                                    if (item == null || empty) {
+                                        setGraphic(null);
+                                    } else {
+                                        Image icon = null;
+                                        try {
+                                            int iconNumber = this.getIndex() + 1;
+                                            System.out.println(iconNumber);
+                                            icon = new Image(new FileInputStream(moviePosters.get(iconNumber - 1)));
+                                        } catch(NullPointerException | FileNotFoundException ex) {
+                                            // in case the above image doesn't exist, use a default one
+                                            String iconPath = "posters/120.jpg";
+                                            try {
+                                                icon = new Image(new FileInputStream(iconPath));
+                                            } catch (FileNotFoundException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                        ImageView iconImageView = new ImageView(icon);
+                                        iconImageView.setFitHeight(contentPageHeight/15);
+                                        iconImageView.setPreserveRatio(true);
+                                        setGraphic(iconImageView);
+                                    }
+                                }
+                            };
+                            return cell;
+                        }
+                    });
+                    if (movieTitles.size() > 6){
+                        comboBoxSearchBar.setVisibleRowCount(6);
+                    }
+                    else comboBoxSearchBar.setVisibleRowCount(movieTitles.size());
+                    comboBoxSearchBar.show();
+                }
+            }
+        });
+        /*searchBarInput.textProperty().addListener((observable, oldValue, newValue) -> {
             if (searchTask.isRunning()) System.out.println("True");
             searchTask = new Task<Void>() {
                 @Override
@@ -315,7 +414,7 @@ VBox scrollPaneVBox;
                 }
             };
             new Thread(searchTask).start();
-        });
+        });*/
 
     }
 

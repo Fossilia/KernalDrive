@@ -88,7 +88,8 @@ public class GroupScreen {
         for (int i = 0; i < rows.length; i++) {
             rows[i] = new HBox();
             rows[i].setId("Row " + (i+ 1));
-            rows[i].setPadding(new Insets(height / 20, 0, 0, width / 40));
+            if (i != 0) rows[i].setPadding(new Insets(height / 20, 0, 0, 0));
+            rows[i].setPadding(new Insets(rows[i].getPadding().getTop(), 0, 0, width / 40));
             rows[i].setMaxWidth(width);
         }
 
@@ -206,6 +207,7 @@ public class GroupScreen {
         movieBox.setPadding(new Insets(0, width / 40, 0, 0));
 
         String imagePath = movie.getPosterPath();
+        System.out.println(imagePath);
         ImageView moviePoster = new ImageView(new Image(new FileInputStream(imagePath)));
         moviePoster.setStyle("-fx-effect: dropshadow(three-pass-box, rgba(0,0,0.8,0), 30, 0, 0, 0)");
         moviePoster.setFitWidth((width / 7.5));
@@ -230,21 +232,23 @@ public class GroupScreen {
         return movieBox;
     }
 
-    public void matchMoviesBySearch(String search, Task<Void> task) {
-        while (true){
-            if (task.isCancelled()){
-                System.out.println("Done Searching");
-                break;
-            }
-            System.out.println("-------------------\nNew Search: " + search);
-        }
-        /*for (int i = 0; i < movieGroups.size(); i++) {
+    public ArrayList<ArrayList<String>> matchMoviesBySearch(String search) {
+        ArrayList<ArrayList<String>> result = new ArrayList<>();
+        ArrayList<String> moviePosters = new ArrayList<>();
+        ArrayList<String> movieTitles = new ArrayList<>();
+        for (int i = 0; i < movieGroups.size(); i++) {
             ArrayList<Movie> movies = movieGroups.get(i).getMovies();
             for (int x = 0; x < movies.size(); x++) {
-                if (movies.get(x).getTitle().toLowerCase().contains(search.toLowerCase()))
-                    System.out.println(movies.get(x).getTitle());
+                if (movies.get(x).getTitle().toLowerCase().contains(search.toLowerCase())) {
+                    Movie movie = movies.get(x);
+                    movieTitles.add(movie.getTitle() + "\n" + "in " + movieGroups.get(i).getName());
+                    moviePosters.add(movie.getPosterPath());
+                }
             }
-        }*/
+        }
+        result.add(movieTitles);
+        result.add(moviePosters);
+        return result;
 
     }
 

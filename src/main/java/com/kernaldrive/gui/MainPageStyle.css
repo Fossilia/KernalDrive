@@ -1,3 +1,53 @@
+@font-face {
+    font-family: 'Varela';
+    src: url('Varela-Regular.otf');
+}
+
+#libraryButton, #recommendedButton, #pageTitleButton{
+    -fx-font-family: 'Varela';
+    -fx-font-size: 16px;
+}
+
+#recommendedButton:hover, #libraryButton:hover{
+    -fx-background-color: rgba(32, 71, 102, 0.2) !important;
+    transition: 2s !important;
+    -fx-text-fill: #1a9ec5 !important;
+}
+
+#libraryButton{
+    -fx-text-fill: #1a9ec5;
+}
+
+.combo-box .arrow, .combo-box .arrow-button{
+    -fx-background-color: transparent;
+}
+
+.combo-box .text-field {
+    -fx-prompt-text-fill: rgb(255, 255, 255);
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.combo-box .list-cell
+{
+    -fx-background: #204766;
+    -fx-background-color: #204766;
+    -fx-text-fill: #1a9ec5;
+    -fx-padding: 3 0 2 7;
+}
+
+.combo-box-popup .list-view
+{
+    -fx-background-color: #204766;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 8, 0.0 , 0 , 0 );
+}
+
+.combo-box-popup .list-view .list-cell
+{
+    -fx-padding: 4 0 4 5;
+}
+
 .scroll-pane > .viewport {
     -fx-background-color: transparent;
 }
