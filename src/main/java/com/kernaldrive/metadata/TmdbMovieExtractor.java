@@ -8,6 +8,7 @@ import info.movito.themoviedbapi.model.people.PersonCredits;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -81,7 +82,9 @@ public class TmdbMovieExtractor implements TmdbKeys{
     private void getPosters(){
         //System.out.println("https://image.tmdb.org/t/p/original"+ movieDb.getPosterPath());
         try(InputStream in = new URL("https://image.tmdb.org/t/p/w185"+ movieDb.getPosterPath()).openStream()){
-            Files.copy(in, Paths.get("C:/Users/Faisal/Documents/GitHub/KernalDrive-v2/posters/"+movie.getTmdbID()+".jpg"));
+            Files.copy(in, Paths.get("./posters/"+movie.getTmdbID()+".jpg"));
+        } catch (FileAlreadyExistsException e) {
+            System.out.println("POSTER ALREADY EXISTS FOR: ["+movie.getTitle()+"]");
         } catch (IOException e) {
             e.printStackTrace();
         }
