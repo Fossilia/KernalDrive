@@ -4,12 +4,12 @@ import com.kernaldrive.metadata.Movie;
 
 import java.sql.*;
 
-public class DatabaseManager {
+public class MovieDBManager {
 
     private Connection con;
     private boolean hasData = false;
 
-    public DatabaseManager() throws SQLException, ClassNotFoundException {
+    public MovieDBManager() throws SQLException, ClassNotFoundException {
         getConnection();
     }
 

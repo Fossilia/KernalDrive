@@ -14,13 +14,13 @@ public class MovieScanner {
     String[] validExtensions = {"mkv", "mp4", "webm", "avi"}; //hardcoded valid extension, there won't be many so thats why it isn't in a text file
     private TmdbFilenameSearch tmdbFilenameSearch;
     private TmdbMovieExtractor tmdbMovieExtractor;
-    DatabaseManager database = null;
+    MovieDBManager database = null;
 
     public MovieScanner(){
 
         //initializing database
         try {
-            database = new DatabaseManager();
+            database = new MovieDBManager();
             database.clearDatabaseScans(); //marks all media as unscanned
         } catch (SQLException e) {
             e.printStackTrace();
