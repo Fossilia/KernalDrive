@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -28,12 +30,12 @@
                   </Label>
                   <HBox fx:id="homeMenuItem" prefHeight="11.0" prefWidth="123.0">
                      <children>
-                        <Button fx:id="homeBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onMouseClicked="#loadMovie" prefHeight="25.0" prefWidth="118.0" style="-fx-background-color: #204766;" text="Home" textFill="#0054b4">
+                        <Button fx:id="homeBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" style="-fx-background-color: #204766;" text="Home" textFill="#1A9EC5">
                            <graphic>
-                              <FontIcon fx:id="homeIcon" iconColor="#0054b4" iconLiteral="fa-home" />
+                              <FontIcon fx:id="homeIcon" iconColor="#1A9EC5" iconLiteral="fa-home" />
                            </graphic>
                         </Button>
-                        <Rectangle fx:id="homeRect" arcHeight="8.0" arcWidth="8.0" fill="#0054b4" height="25.0" stroke="#0054b4" strokeType="INSIDE" width="9.0" />
+                        <Rectangle fx:id="homeRect" arcHeight="8.0" arcWidth="8.0" fill="#1A9EC5" height="25.0" stroke="#1A9EC5" strokeType="INSIDE" width="9.0" />
                      </children>
                   </HBox>
                </children>
@@ -42,12 +44,38 @@
                <children>
                   <VBox fx:id="topBar" prefWidth="461.0">
                      <children>
-                        <HBox fx:id="titleBar" prefHeight="100.0" prefWidth="200.0" />
+                        <HBox fx:id="mainTopBar" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: transparent;">
+                           <children>
+                              <Button mnemonicParsing="false" style="-fx-background-color: transparent;" />
+                              <Button fx:id="pageTitleButton" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Button" textFill="WHITE">
+                                 <font>
+                                    <Font name="Sylfaen" size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="recommendedButton" alignment="BASELINE_CENTER" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Recommended" textFill="#999999" />
+                              <Button fx:id="libraryButton" alignment="BASELINE_CENTER" mnemonicParsing="false" style="-fx-background-color: rgba(32, 71, 102, 0.2);" text="Library" textFill="#bfbfbf" />
+                              <Button fx:id="topBarMiddleMargin" mnemonicParsing="false" style="-fx-background-color: transparent;" />
+                              <VBox fx:id="searchBarVBox" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <HBox fx:id="searchBarHBox" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: rgba(128, 128, 128, 0.2); -fx-background-radius: 5;">
+                                       <children>
+                                          <Button fx:id="searchBarIcon" alignment="CENTER_RIGHT" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-radius: 15em 50em 30em 5emd;">
+                                             <graphic>
+                                                <FontIcon iconColor="WHITE" iconLiteral="fa-search" />
+                                             </graphic>
+                                          </Button>
+                                          <ComboBox fx:id="comboBoxSearchBar" editable="true" prefWidth="150.0" promptText="Search movies" style="-fx-background-color: transparent; -fx-background-radius: 5;" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
-                  <ScrollPane fx:id="contentPage" prefHeight="410.0" prefWidth="479.0">
+                  <ScrollPane fx:id="contentPageScrollPane" prefHeight="410.0" prefWidth="479.0">
                      <content>
-                        <VBox fx:id="contentContainer" prefHeight="337.0" prefWidth="460.0" />
+                        <VBox fx:id="scrollPaneVBox" prefHeight="337.0" prefWidth="460.0" stylesheets="@MainPageStyle.css" />
                      </content>
                   </ScrollPane>
                </children>
@@ -55,4 +83,7 @@
          </children>
       </HBox>
    </children>
+   <stylesheets>
+      <URL value="@MainPageStyle.css" />
+   </stylesheets>
 </AnchorPane>

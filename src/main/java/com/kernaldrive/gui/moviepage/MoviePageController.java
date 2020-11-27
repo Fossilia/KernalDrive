@@ -35,7 +35,7 @@ import java.util.List;
 public class MoviePageController {
 
     private Movie movie;
-    private String fontPath = "file:C:\\Users\\idree\\Documents\\Java Projects\\KernalDrive\\varela\\Varela-Regular.otf";
+    private String fontPath = "file:C:\\Users\\Faisal\\Documents\\Github\\KernalDrive\\varela\\Varela-Regular.otf";
     private Font movieFont = Font.loadFont(fontPath, 40);
     private String defaultPersonImage = "file:cast.jpg";
     private ArrayList<ImageView> castImages = new ArrayList<>();

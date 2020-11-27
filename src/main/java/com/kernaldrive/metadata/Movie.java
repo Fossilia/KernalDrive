@@ -4,6 +4,8 @@ import info.movito.themoviedbapi.model.Genre;
 import info.movito.themoviedbapi.model.people.PersonCast;
 import info.movito.themoviedbapi.model.people.PersonCrew;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class Movie extends Media {
@@ -24,12 +26,24 @@ public class Movie extends Media {
     private List<PersonCast> cast;
     private List<PersonCrew> crew;
 
-    private String posterBaseURL = "https://image.tmdb.org/t/p/w342";
+    private String posterBaseURL = "https://image.tmdb.org/t/p/w185";
 
     public Movie(String filePath, int tmdbID){
         this.tmdbID = tmdbID;
         this.filePath = filePath;
     }
+
+    public Movie(ResultSet data) throws SQLException {
+        //if(data.next()){
+            tmdbID = data.getInt(2);
+            title = data.getString(3);
+            year = data.getString(4);
+            //genres = data.getString("genre");
+            posterPath = data.getString(6);
+            filePath = data.getString(7);
+        //}
+    }
+
     public int getTmdbID() {
         return tmdbID;
     }
@@ -82,9 +96,14 @@ public class Movie extends Media {
         return posterPath;
     }
 
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterBaseURL + posterPath;
+    public String getPosterURL() {
+        return posterBaseURL + posterPath;
     }
+
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+    }
+
 
     public List<Genre> getGenres() {
         return genres;

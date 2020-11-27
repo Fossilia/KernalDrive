@@ -9,8 +9,10 @@ import java.util.ArrayList;
 public class MediaManager {
     ArrayList<MovieGroup> movieGroups;
     ArrayList<ShowGroup> showGroups;
+    private MovieScanner scanner;
 
     public MediaManager(){
+        scanner = new MovieScanner();
         movieGroups = new ArrayList<>();
         String input = "";
         System.out.println("Welcome to KernalDrive!");
@@ -49,8 +51,8 @@ public class MediaManager {
         if(type == 1){ //if movie
             MovieGroup group = new MovieGroup(name);
             addPaths(group);
-            MovieScanner scanner = new MovieScanner();
-            scanner.scan(group);
+            //MovieScanner scanner = new MovieScanner();
+            //scanner.scan(group);
             movieGroups.add(group);
         }
         else{ //if show
@@ -75,5 +77,13 @@ public class MediaManager {
             group.addPath(path);
         }
         System.out.println("The paths you added are: "+group.getPaths());
+    }
+
+    public void scanGroups(int pos){
+        scanner.scan(movieGroups.get(pos));
+        /*for (int i = 0; i < movieGroups.size(); i++) {
+            MovieScanner scanner = new MovieScanner();
+            scanner.scan(movieGroups.get(i));
+        }*/
     }
 }
