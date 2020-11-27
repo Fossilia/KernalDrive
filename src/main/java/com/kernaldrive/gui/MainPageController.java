@@ -35,7 +35,9 @@ public class MainPageController {
     private Font movieFont = Font.loadFont(boldFontPath, 20);
     private Font sideBarMenuFont = Font.loadFont(boldFontPath, 18);
     private Font titleFont = Font.loadFont(boldFontPath, 22);
-    
+
+
+
     private Color LIGHTBLUE = Color.rgb(153, 201, 255);
     private Color SIDEBARCOLOR = Color.rgb(32,71,102)  ;
     private Color DARKBLUE = Color.rgb(26,158,197);
