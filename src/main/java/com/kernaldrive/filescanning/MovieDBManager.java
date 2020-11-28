@@ -4,12 +4,12 @@ import com.kernaldrive.metadata.Movie;
 
 import java.sql.*;
 
-public class DatabaseManager {
+public class MovieDBManager {
 
     private Connection con;
     private boolean hasData = false;
 
-    public DatabaseManager() throws SQLException, ClassNotFoundException {
+    public MovieDBManager() throws SQLException, ClassNotFoundException {
         getConnection();
     }
 
@@ -35,6 +35,7 @@ public class DatabaseManager {
             PreparedStatement state2 = con.prepareStatement("UPDATE movies SET scanned = 1 WHERE path = ?");
             state2.setString(1, path);
             state2.executeUpdate();
+            //state2.close();
             return res;
         }
         else{
@@ -49,6 +50,7 @@ public class DatabaseManager {
 
         Statement state = con.createStatement();
         state.execute("UPDATE movies SET scanned = 0");
+        state.close();
 
     }
 
@@ -65,11 +67,11 @@ public class DatabaseManager {
             Statement state = con.createStatement();
             ResultSet res = state.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='movies'");
             if(!res.next()){
-                System.out.println("Building the user table with prepopulated values.");
+                System.out.println("Building the Movie table with prepopulated values.");
                 //building table
                 Statement state2 = con.createStatement();
                 state2.execute("CREATE TABLE  movies(id integer, tmdbID integer, title varchar(60), year varchar(60), genre varchar(60), cover varchar(60), path varchar(300), scanned integer, primary key(id));");
-
+                state2.close();
             }
         }
     }
@@ -87,5 +89,14 @@ public class DatabaseManager {
         prep.setString(7,  movie.getFilePath());
         prep.setInt(8,  1);
         prep.execute();
+        prep.close();
+    }
+
+    public void closeConnection(){
+        try {
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

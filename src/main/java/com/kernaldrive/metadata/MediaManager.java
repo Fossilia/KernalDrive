@@ -1,27 +1,75 @@
 package com.kernaldrive.metadata;
 
+import com.kernaldrive.filescanning.GroupDBManager;
 import com.kernaldrive.filescanning.Input;
 import com.kernaldrive.filescanning.MovieScanner;
 
+import javax.xml.transform.Result;
 import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class MediaManager {
     ArrayList<MovieGroup> movieGroups;
     ArrayList<ShowGroup> showGroups;
+    GroupDBManager groupDB;
+
     private MovieScanner scanner;
+    ResultSet dbGroups;
 
     public MediaManager(){
         scanner = new MovieScanner();
         movieGroups = new ArrayList<>();
-        String input = "";
-        System.out.println("Welcome to KernalDrive!");
-        while(!input.equals("no")){
-            getNewGroupInfo();
-            System.out.println("Would you like to add another group? Input 'yes' or 'no':");
-            input = Input.getStringInput();
+        try {
+            groupDB = new GroupDBManager();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error with creating Group manager table");
+            //e.printStackTrace();
         }
-        System.out.println("Groups inputted: "+ movieGroups);
+
+
+        try {
+            dbGroups = groupDB.getGroups();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error with getting group info from database.");
+            e.printStackTrace();
+        }
+
+        try {
+            if(dbGroups.next()){ //if the group table exists (the program was booted once before)
+                MovieGroup group = new MovieGroup(dbGroups, groupDB.getGroupPaths(dbGroups.getString(2))); //load group data from database
+                movieGroups.add(group); //add group
+                while(dbGroups.next()){
+                    group = new MovieGroup(dbGroups, groupDB.getGroupPaths(dbGroups.getString(2))); //load group data from database
+                    movieGroups.add(group); //add group
+                }
+                groupDB.closeConnection();
+            }
+            else{ //if group table does not exist (create the groups)
+                String input = "";
+                System.out.println("Welcome to KernalDrive!");
+                while(!input.equals("no")){
+                    try {
+                        getNewGroupInfo();
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("Would you like to add another group? Input 'yes' or 'no':");
+                    input = Input.getStringInput();
+                }
+                System.out.println("Groups inputted: "+ movieGroups);
+            }
+        } catch (SQLException e) {
+            //System.out.println("Error with getting group info from database.");
+            e.printStackTrace();
+        }
+
     }
 
     public ArrayList<MovieGroup> getMovieGroups() {
@@ -43,7 +91,7 @@ public class MediaManager {
     /**
      *
      */
-    public void getNewGroupInfo(){
+    public void getNewGroupInfo() throws SQLException, ClassNotFoundException {
         System.out.println("please type in the name of your group:");
         String name = Input.getStringInput();
         System.out.println("Please input [1] if this a Movie group or input [2] if it is Shows group:");
@@ -51,6 +99,7 @@ public class MediaManager {
         if(type == 1){ //if movie
             MovieGroup group = new MovieGroup(name);
             addPaths(group);
+            groupDB.addGroup(group);
             //MovieScanner scanner = new MovieScanner();
             //scanner.scan(group);
             movieGroups.add(group);
@@ -80,6 +129,7 @@ public class MediaManager {
     }
 
     public void scanGroups(int pos){
+        System.out.println(movieGroups.get(pos).getName());
         scanner.scan(movieGroups.get(pos));
         /*for (int i = 0; i < movieGroups.size(); i++) {
             MovieScanner scanner = new MovieScanner();

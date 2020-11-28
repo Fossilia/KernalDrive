@@ -1,5 +1,7 @@
 package com.kernaldrive.metadata;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class MovieGroup extends MediaGroup{
@@ -7,6 +9,11 @@ public class MovieGroup extends MediaGroup{
 
     public MovieGroup(String name){
         super(name);
+        movies = new ArrayList<>();
+    }
+
+    public MovieGroup(ResultSet group, ResultSet path) throws SQLException {
+        super(group, path);
         movies = new ArrayList<>();
     }
 

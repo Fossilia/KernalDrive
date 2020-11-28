@@ -1,6 +1,8 @@
 package com.kernaldrive.metadata;
 
 import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public abstract class MediaGroup {
@@ -10,6 +12,20 @@ public abstract class MediaGroup {
     public MediaGroup(String name){
         this.name = name;
         paths = new ArrayList<>();
+    }
+
+    /**
+     * used to load a mediagroup from the database
+     * @param group group row to load name off of
+     * @param paths proup paths row(s) to load paths off of
+     * @throws SQLException
+     */
+    public MediaGroup(ResultSet group, ResultSet paths) throws SQLException {
+        this.paths = new ArrayList<>();
+        name = group.getString(2);
+        while(paths.next()){
+            addPath(new File(paths.getString(3)));
+        }
     }
 
     /**

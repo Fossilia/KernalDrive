@@ -21,6 +21,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -40,12 +41,14 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.stage.Window;
 import javafx.util.Callback;
 import org.kordamp.ikonli.Ikonli;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.w3c.dom.css.Rect;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -69,7 +72,7 @@ public class MainPageController {
 
     private Color LIGHTBLUE = Color.rgb(153, 201, 255);
     private Color SIDEBARCOLOR = Color.rgb(32, 71, 102);
-        private Color DARKBLUE = Color.rgb(26, 158, 197);
+    private Color DARKBLUE = Color.rgb(26, 158, 197);
     private Button titleButton;
 
 @FXML
@@ -279,12 +282,12 @@ VBox scrollPaneVBox;
         scrollPaneVBox.getChildren().add(b);
 
 
-        contentPageScrollPane.vvalueProperty().addListener((obs) -> {
+        /*contentPageScrollPane.vvalueProperty().addListener((obs) -> {
             groupScreens[menuPos].addRows(contentPageWidth, contentPageHeight, movieFont, visibleNodes, contentPageScrollPane, scrollPaneVBox, b);
         });
         contentPageScrollPane.hvalueProperty().addListener((obs) -> {
             groupScreens[menuPos].addRows(contentPageWidth, contentPageHeight, movieFont, visibleNodes, contentPageScrollPane, scrollPaneVBox, b);
-        });
+        });*/
 
     }
 
@@ -318,7 +321,7 @@ VBox scrollPaneVBox;
     private <T> void setTopBar(String title){
         topBar.setPrefWidth(contentPageWidth);
         mainTopBar.setPrefWidth(contentPageWidth);
-        mainTopBar.setPadding(new Insets(15,0,0,0));
+        mainTopBar.setPadding(new Insets(15,0,15,0));
         //pageTitleButton.setMinHeight(contentPageHeight/20);
         pageTitleButton.setText(title);
         //pageTitleButton.setFont(sideBarMenuFont);
@@ -351,6 +354,7 @@ VBox scrollPaneVBox;
                     ArrayList<String> movieTitles = searchResults.get(0);
                     ArrayList<String> moviePosters = searchResults.get(1);
                     comboBoxSearchBar.getItems().addAll(movieTitles);
+                    //System.out.println(movieTitles.size());
                     comboBoxSearchBar.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
                         @Override
                         public ListCell<String> call(ListView<String> p) {
@@ -367,9 +371,9 @@ VBox scrollPaneVBox;
                                     } else {
                                         Image icon = null;
                                         try {
-                                            int iconNumber = this.getIndex() + 1;
-                                            System.out.println(iconNumber);
-                                            icon = new Image(new FileInputStream(moviePosters.get(iconNumber - 1)));
+                                            int iconNumber = this.getIndex();
+                                            if (iconNumber < moviePosters.size())
+                                                icon = new Image(new FileInputStream(moviePosters.get(iconNumber)));
                                         } catch(NullPointerException | FileNotFoundException ex) {
                                             // in case the above image doesn't exist, use a default one
                                             String iconPath = "posters/120.jpg";
