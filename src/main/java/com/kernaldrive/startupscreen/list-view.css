@@ -1,5 +1,5 @@
 .list-view{       /* For the ListView - folderPath */
-    -fx-background-color: #e8f4f8;
+    -fx-background-color: #204766;
     -fx-font-family: "Varela-Regular";
     -fx-text-alignment: Center;
     -fx-font-size: 21;
@@ -8,8 +8,8 @@
 
 .list-view .scroll-bar:horizontal .track,
 .list-view .scroll-bar:vertical .track{
-    -fx-background-color :#e8f4f8;
-    -fx-border-color :transparent;
+    -fx-background-color :#204766;
+    -fx-border-color : transparent;
     -fx-background-radius : 0.0em;
     -fx-border-radius :2.0em;
 }
@@ -35,7 +35,7 @@
 
 .list-view .scroll-bar:horizontal .thumb,
 .list-view .scroll-bar:vertical .thumb {
-    -fx-background-color :derive(#0054B4,90.0%);
+    -fx-background-color :  #161E25;
     -fx-background-insets : 2.0, 0.0, 0.0;
     -fx-background-radius : 2.0em;
 }
@@ -48,34 +48,26 @@
 }
 
 .list-cell{
-    -fx-text-fill: #0054B4;
-    -fx-background-color: #e8f4f8;
+    -fx-text-fill: #e8f4f8 ;
+    -fx-background-color: #204766;
     -fx-text-alignment: Center;
 }
 
-.combo-box{
-    -fx-background-color: #e8f4f8;
-    -fx-background-radius: 5;
-}
-.combo-box .list-cell:hover{
-    -fx-background-color: #b3ccff;
-}
-
 .button{
-    -fx-background-color: #e8f4f8;
-    -fx-pref-width: 260px;
+    -fx-background-color: #204766;
+    /*-fx-pref-width: 260px;*/
     -fx-background-radius: 5;
 }
 
 .button:hover{
-    -fx-background-color: #b3ccff;
+    -fx-background-color: #1A9EC5;
 }
 
 .text-field{
-    -fx-background-color: #e8f4f8;
+    -fx-background-color: #204766;
     -fx-background-radius: 5;
 }
 
 .text-field:hover{
-    -fx-background-color: #b3ccff;
+    -fx-background-color: #1A9EC5;
 }
