@@ -34,8 +34,10 @@ public class SplashScreen{
         screenWidth = screenBounds.getWidth();
         screenHeight = screenBounds.getHeight();
         loader = new FXMLLoader();
-        loader.setLocation(new URL("file:///C:\\Users\\Faisal\\Documents\\GitHub\\KernalDrive-v2\\src\\main\\java\\com\\kernaldrive\\gui\\splashscreen\\SplashScreen.fxml"));
+        //loader.setLocation(new URL("file:///C:\\Users\\Faisal\\Documents\\GitHub\\KernalDrive-v2\\src\\main\\java\\com\\kernaldrive\\gui\\splashscreen\\SplashScreen.fxml"));
+        loader.setLocation( new URL(new URL("file:"), "./src/main/java/com/kernaldrive/gui/splashscreen/SplashScreen.fxml"));
     }
+
 
     /**Sets up the splash screen by invoking the controller for this class. This controller
      * takes the base splash screen and first adjusts it to fit the screen size through the
