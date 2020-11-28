@@ -35,14 +35,16 @@ public class GroupDBManager {
             hasData = true;
 
             Statement state = con.createStatement();
-            ResultSet res = state.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='group'");
+            ResultSet res = state.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='movieGroup'");
             if(!res.next()){ //if the table does not exit
                 System.out.println("Building the group table with prepopulated values.");
                 //building table
                 Statement state2 = con.createStatement();
                 Statement state3 = con.createStatement();
-                state2.execute("CREATE TABLE  group(id integer, name varchar(60), primary key(id));");
-                state3.execute("CREATE TABLE  groupPath(id integer, groupName varchar(60), path varchar(300), primary key(id));");
+                state2.execute("CREATE TABLE movieGroup(id integer, name varchar(60), primary key(id));");
+                state3.execute("CREATE TABLE groupPath(id integer, groupName varchar(60), path varchar(300), primary key(id));");
+                state2.close();
+                state3.close();
             }
         }
     }
@@ -59,15 +61,16 @@ public class GroupDBManager {
         if(con == null){
             getConnection();
         }
-        PreparedStatement prep = con.prepareStatement(("INSERT  INTO group values(?)")); //insert group name into group table
+        PreparedStatement prep = con.prepareStatement(("INSERT  INTO movieGroup values(?, ?)")); //insert group name into group table
         prep.setString(2, group.getName());
         prep.execute();
-
+        prep.close();
         for(File path: group.getPaths()){ //inserting paths into grouppath table
-            PreparedStatement prep2 = con.prepareStatement(("INSERT  INTO groupPaths values(?, ?)"));
+            PreparedStatement prep2 = con.prepareStatement(("INSERT  INTO groupPath values(?, ?, ?)"));
             prep2.setString(2, group.getName());
             prep2.setString(3, path.getPath());
             prep2.execute();
+            prep2.close();
         }
     }
 
@@ -83,7 +86,8 @@ public class GroupDBManager {
         }
 
         Statement state = con.createStatement();
-        ResultSet res = state.executeQuery("SELECT * FROM group");
+        ResultSet res = state.executeQuery("SELECT * FROM movieGroup");
+        //state.close();
         return res;
     }
 
@@ -94,14 +98,32 @@ public class GroupDBManager {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public ResultSet getGroupPaths(String groupName) throws SQLException, ClassNotFoundException {
-        if (con == null) {
-            getConnection();
-        }
+    public ResultSet getGroupPaths(String groupName)  {
+        try {
+            if (con == null) {
+                getConnection();
+            }
 
-        PreparedStatement state = con.prepareStatement("SELECT * FROM groupPath WHERE groupName = ?");
-        state.setString(1, groupName);
-        ResultSet res = state.executeQuery();
-        return res;
+
+            PreparedStatement state = con.prepareStatement("SELECT * FROM groupPath WHERE groupName = ?");
+            state.setString(1, groupName);
+            ResultSet res = state.executeQuery();
+            //state.close();
+            return res;
+        }
+         catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void closeConnection(){
+        try {
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
