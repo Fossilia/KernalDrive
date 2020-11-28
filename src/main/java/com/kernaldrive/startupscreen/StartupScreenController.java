@@ -1,7 +1,7 @@
 package com.kernaldrive.startupscreen;
 import com.kernaldrive.metadata.MediaGroup;
-
 import com.kernaldrive.metadata.MovieGroup;
+
 import com.kernaldrive.metadata.ShowGroup;
 import com.sun.javafx.application.LauncherImpl;
 import javafx.application.Application;
@@ -42,11 +42,14 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class StartupScreenController extends Application{
+public class StartupScreenController{
 
     //private Button folderButton, backButton, addGroupButton;
     private ArrayList<File> groupPaths;
     private ArrayList<MediaGroup> mediaGroups;
+    private Color LIGHTBLUE = Color.rgb(153, 201, 255);
+    private Color SIDEBARCOLOR = Color.rgb(32, 71, 102);
+    private Color DARKBLUE = Color.rgb(26, 158, 197);
 
 @FXML
 AnchorPane anchorPane;
@@ -64,53 +67,53 @@ Button folderButton;
 Button addGroupButton;
 
 @FXML
-TextField textField1;
+Button enterHomePage;
 
 @FXML
-TextField textField2;
+TextField textField;
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+@FXML
+ListView listView;
+
+    public void loadStartupScreen(Stage primaryStage) throws Exception{
 
         groupPaths = new ArrayList<File>();
         mediaGroups = new ArrayList<MediaGroup>();
+        anchorPane.setStyle("-fx-background-color: linear-gradient(to bottom left, rgba(40,43,82, 0.8) 20% , rgba(21,102,123, 0.8))");
 
-        primaryStage.initStyle(StageStyle.UTILITY);     //removes minimize and fullscreen button
 
         Rectangle2D screenBounds = Screen.getPrimary().getBounds();
         double screenWidth = screenBounds.getWidth();
         double screenHeight = screenBounds.getHeight();
-        primaryStage.setTitle("Homepage - KernalDrive");
 
-        Pane layout = new Pane();
-
-        Scene scene = new Scene(layout, 1920, 1080);
 
         //IMPORTING CSS
-        scene.getStylesheets().add("C:\\Users\\ahmed\\IdeaProjects\\KernalDrive\\src\\main\\java\\com\\kernaldrive\\startupscreen\\list-view.css");
 
         //CREATING A LISTVIEW OF THE PATH
-        ListView<String> folderPath = new ListView<>();
-        folderPath.setLayoutX((screenWidth/30)*11);
-        folderPath.setLayoutY((screenHeight/23)*15);
-        folderPath.setPrefSize((screenWidth/30)*12.1, (screenHeight/20)*2.7);
-        folderPath.getItems().add("Below is a List of Your Directory Paths:");
-        folderPath.setStyle("-fx-text-fill: #0054B4;");
+        //ListView<String> folderPath = new ListView<>();
+        listView.setLayoutX((screenWidth/30)*11);
+        listView.setLayoutY((screenHeight/23)*15);
+        listView.setPrefSize((screenWidth/30)*12.1, (screenHeight/20)*2.7);
+        listView.getItems().add("Below is a List of Your Directory Paths:");
+        listView.setStyle("-fx-text-fill: WHITE;");
 
-        layout.getChildren().add(folderPath);
 
-        layout.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        //Adding LOGO
+        imageView.setFitHeight((screenHeight/3)*1.5);
+        imageView.setPreserveRatio(true);
+        imageView.setX((screenWidth/14)*2);
+        imageView.setY((screenHeight/20)*0.2);
+        imageView.setPickOnBounds(true);
+
 
         //ADDING TEXTFIELD-------------------------------
+        textField.setPromptText("Enter Group Name...");
+        textField.setFont(Font.loadFont(new FileInputStream("C:\\Users\\ahmed\\OneDrive\\Documents\\GitHub\\KernalDrive\\src\\Varela-Regular.ttf"), 25));
+        textField.setStyle("-fx-text-fill: WHITE;");
+        textField.setLayoutX((screenWidth/30)*6.5);
+        textField.setLayoutY((screenHeight/20)*11.1);
+        textField.setPrefWidth((screenWidth/30)*16.6);
 
-        //TextField textField = new TextField ();
-        textField1.setPromptText("Enter Group Name...");
-        textField1.setFont(Font.loadFont(new FileInputStream("C:\\Users\\ahmed\\OneDrive\\Documents\\GitHub\\KernalDrive\\src\\Varela-Regular.ttf"), 25));
-        textField1.setStyle("-fx-text-fill: #0054B4;");
-        textField1.setLayoutX((screenWidth/30)*6.5);
-        textField1.setLayoutY((screenHeight/20)*11.1);
-        textField1.setPrefWidth(700);
-        layout.getChildren().add(textField1);
 
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Choose Folder");
@@ -118,33 +121,40 @@ TextField textField2;
         //folderButton = new Button();
         folderButton.setText("Add Directories");
         folderButton.setFont(Font.loadFont(new FileInputStream("C:\\Users\\ahmed\\OneDrive\\Documents\\GitHub\\KernalDrive\\src\\Varela-Regular.ttf"), 25));
-        folderButton.setStyle("-fx-text-fill: #0054b4;");
+        folderButton.setStyle("-fx-text-fill: WHITE;");
         folderButton.setLayoutX((screenWidth/30)*6.5);
         folderButton.setLayoutY((screenHeight/23)*15);
-        //folderButton.setMinWidth();
-        layout.getChildren().addAll(folderButton);
+        folderButton.setPrefWidth((screenWidth/30)*4.1);
 
-        addGroupButton = new Button();
+        //addGroupButton = new Button();
         addGroupButton.setText("Add Group");
         addGroupButton.setFont(Font.loadFont(new FileInputStream("C:\\Users\\ahmed\\OneDrive\\Documents\\GitHub\\KernalDrive\\src\\Varela-Regular.ttf"), 25));
-        addGroupButton.setStyle("-fx-text-fill: #0054b4;");
+        addGroupButton.setStyle("-fx-text-fill: WHITE;");
         addGroupButton.setLayoutX((screenWidth/30)*6.5);
         addGroupButton.setLayoutY((screenHeight/23)*17);
-        layout.getChildren().addAll(addGroupButton );
+        addGroupButton.setPrefWidth((screenWidth/30)*4.1);
 
-        folderButton.setOnAction(new EventHandler<ActionEvent>() {      //if folder button is clicked
+        //enter home page button
+        enterHomePage.setText("Enter Home Page");
+        enterHomePage.setFont(Font.loadFont(new FileInputStream("C:\\Users\\ahmed\\OneDrive\\Documents\\GitHub\\KernalDrive\\src\\Varela-Regular.ttf"), 25));
+        enterHomePage.setStyle("-fx-text-fill: WHITE;");
+        enterHomePage.setPrefWidth((screenWidth/30)*16.6);
+        enterHomePage.setLayoutX((screenWidth/30)*6.5);
+        enterHomePage.setLayoutY((screenHeight/23)*19);
+
+        folderButton.setOnAction(new EventHandler<>() {      //if folder button is clicked
             @Override
             public void handle(ActionEvent event) {
                 File selectedDirectory = directoryChooser.showDialog(primaryStage);
 
-                if(selectedDirectory == null){
+                if (selectedDirectory == null) {
                     //No Directory selected
-                }else{
+                } else {
                     //textArea.append(selectedDirectory.getAbsolutePath());
                     //System.out.println(selectedDirectory.);
 
                     groupPaths.add(selectedDirectory);
-                    folderPath.getItems().add(selectedDirectory.toString());
+                    listView.getItems().add(selectedDirectory.toString());
 
                 }
             }
@@ -153,14 +163,11 @@ TextField textField2;
         addGroupButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                addGroup(textField1.getText());
-                clearScreen(textField1, folderPath);
+                addGroup(textField.getText());
+                clearScreen(textField, listView);
             }
         });
 
-        primaryStage.setScene(scene);
-        primaryStage.setMaximized(true);        //starts program as full screen
-        primaryStage.show();
 
     }
 
@@ -194,10 +201,6 @@ TextField textField2;
         for(File filePath : this.groupPaths){
             groupPaths.add(filePath);
         }
-    }
-
-    public static void main(String[] args) {
-        launch(args);   //sets up program as javafx application
     }
 
 }

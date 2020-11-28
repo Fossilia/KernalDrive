@@ -1,7 +1,6 @@
 package com.kernaldrive.gui.moviepage;
 
 
-import com.kernaldrive.gui.MainPageController;
 import com.kernaldrive.metadata.Movie;
 import info.movito.themoviedbapi.model.people.*;
 
@@ -20,13 +19,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.*;
-import javafx.scene.paint.CycleMethod;
 import javafx.scene.text.Font;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 
 import java.util.ArrayList;
