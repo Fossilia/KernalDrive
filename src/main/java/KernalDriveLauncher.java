@@ -17,13 +17,13 @@ public class KernalDriveLauncher {
      **/
     public void startApplication(Stage primaryStage) throws IOException {
         MediaManager manager = new MediaManager();
-        SplashScreen splashScreen = new SplashScreen(manager, primaryStage);
+        /*SplashScreen splashScreen = new SplashScreen(manager, primaryStage);
         MainScreen mainScreen = new MainScreen();
         Scene splashScreenScene = splashScreen.getScene();
         primaryStage.setScene(splashScreenScene);
         primaryStage.initStyle(StageStyle.UTILITY);
         primaryStage.show();
         //This essentially controls the loading of the resources and the progress bar
-        splashScreen.setSplashScreen(mainScreen);
+        splashScreen.setSplashScreen(mainScreen);*/
     }
 }

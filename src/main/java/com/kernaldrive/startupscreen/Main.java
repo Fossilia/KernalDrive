@@ -90,7 +90,7 @@ public class Main extends Application {
         //ADDING TEXTFIELD-------------------------------
         TextField textField = new TextField ();
         textField.setPromptText("Enter Group Name...");
-        textField.setFont(Font.loadFont(new FileInputStream("C:\\Users\\ahmed\\OneDrive\\Documents\\GitHub\\KernalDrive\\src\\Varela-Regular.ttf"), 25));
+        textField.setFont(Font.loadFont(new FileInputStream("./com/kernaldrive/gui/Varela-Regular.otf"), 25));
         textField.setStyle("-fx-text-fill: #0054B4;");
         textField.setLayoutX((screenWidth/30)*6.5);
         textField.setLayoutY((screenHeight/20)*11.1);

@@ -37,8 +37,8 @@ public class MainScreen{
         loader.setLocation( new URL(new URL("file:"), "./src/main/java/com/kernaldrive/gui/MainScreen.fxml"));
     }
 
-    public void setSideBar(MediaManager manager){
-        movieGroups = manager.getMovieGroups();
+    public void setSideBar(ArrayList<MovieGroup> movieGroupList){
+        movieGroups = movieGroupList;
         mainPageController = loader.getController();
         mainPageController.setSideBar(screenWidth / 6, screenHeight, movieGroups);
     }

@@ -21,7 +21,7 @@ public class startupScreenTester extends Application {
         public void start(Stage primaryStage)throws Exception{
             primaryStage.setTitle("MoviePage");
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(new URL("file:///C:\\Users\\ahmed\\IdeaProjects\\KernalDrive\\src\\main\\java\\com\\kernaldrive\\startupscreen\\StartupScreen.fxml"));
+            loader.setLocation( new URL(new URL("file:"), "./src/main/java/com/kernaldrive/startupscreen/StartupScreen.fxml"));
             Parent root = loader.load();
             //Parent root = FXMLLoader.load(getClass().getResource("MoviePage.fxml"));
             Rectangle2D screenBounds = Screen.getPrimary().getBounds();

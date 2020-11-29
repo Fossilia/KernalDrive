@@ -33,6 +33,15 @@ public class Movie extends Media {
         this.filePath = filePath;
     }
 
+    public Movie(int tmdbid, String title, String year, String genre, String cover, String path){
+        this.tmdbID = tmdbid;
+        this.title = title;
+        this.year = year;
+        //this.genre = genre;
+        this.posterPath = cover;
+        this.filePath = path;
+    }
+
     public Movie(ResultSet data) throws SQLException {
         //if(data.next()){
             tmdbID = data.getInt(2);
