@@ -1,5 +1,6 @@
 package com.kernaldrive.gui.splashscreen;
 
+import com.kernaldrive.filescanning.MovieScanner;
 import com.kernaldrive.gui.MainScreen;
 import com.kernaldrive.metadata.MediaManager;
 import com.kernaldrive.metadata.MovieGroup;
@@ -22,12 +23,15 @@ public class SplashScreen{
     private double screenWidth;
     private double screenHeight;
     private MediaManager manager;
+    private ArrayList<MovieGroup> movieGroupList;
     private Stage primaryStage;
     private FXMLLoader loader;
+    private MovieScanner movieScanner;
 
-    public SplashScreen(MediaManager manager, Stage primaryStage) throws MalformedURLException {
+    public SplashScreen(ArrayList<MovieGroup> MovieGroupList, Stage primaryStage) throws MalformedURLException {
 
-        this.manager = manager;
+        //this.manager = manager;
+        this.movieGroupList = MovieGroupList;
         this.primaryStage = primaryStage;
         Rectangle2D screenBounds = Screen.getPrimary().getBounds();
         screenWidth = screenBounds.getWidth();
@@ -44,7 +48,7 @@ public class SplashScreen{
      **/
     public void setSplashScreen(MainScreen mainScreen) throws IOException {
         SplashScreenController splashScreenController = loader.getController();
-        splashScreenController.setSplashScreen(screenWidth, screenHeight - 30, manager.getMovieGroups().get(0));
+        splashScreenController.setSplashScreen(screenWidth, screenHeight - 30, movieGroupList.get(0));
         loadResources(splashScreenController, mainScreen);
     }
 
@@ -71,16 +75,18 @@ public class SplashScreen{
         });
         new Thread(){
             public void run(){
-                ArrayList<MovieGroup> movieGroups = manager.getMovieGroups();
+                //ArrayList<MovieGroup> movieGroups = manager.getMovieGroups();
+
                 //The overall increment after all the groups are scanned is 40% of the bar, so we divide it by
                 //the number of groups to get the increment of the progress bar after each group is scanned. The
                 //similar logic is employed with the time interval that each increment takes
-                double eachGroupIncrement = 0.4 / movieGroups.size();
-                double eachGroupIncrementTime = 3000 / movieGroups.size();
-                for (int i = 0; i < movieGroups.size(); i++){
-                    manager.scanGroups(i);
-                    if (i + 1 == movieGroups.size()) splashScreenController.setProgressBar(movieGroups.get(i).getName(), movieGroups.get(i).getMovies().size(), eachGroupIncrement*(i + 1), eachGroupIncrementTime, "Building Side Bar...", advanceButton);
-                    else splashScreenController.setProgressBar(movieGroups.get(i).getName(), movieGroups.get(i).getMovies().size(), eachGroupIncrement*(i + 1), eachGroupIncrementTime, "Scanning " + movieGroups.get(i + 1).getName() + " Group...", advanceButton);
+                double eachGroupIncrement = 0.4 / movieGroupList.size();
+                double eachGroupIncrementTime = 3000 / movieGroupList.size();
+                movieScanner = new MovieScanner();
+                for (int i = 0; i < movieGroupList.size(); i++){
+                    movieScanner.scan(movieGroupList.get(i));
+                    if (i + 1 == movieGroupList.size()) splashScreenController.setProgressBar(movieGroupList.get(i).getName(), movieGroupList.get(i).getMovies().size(), eachGroupIncrement*(i + 1), eachGroupIncrementTime, "Building Side Bar...", advanceButton);
+                    else splashScreenController.setProgressBar(movieGroupList.get(i).getName(), movieGroupList.get(i).getMovies().size(), eachGroupIncrement*(i + 1), eachGroupIncrementTime, "Scanning " + movieGroupList.get(i + 1).getName() + " Group...", advanceButton);
                     try {
                         Thread.sleep((long) eachGroupIncrementTime);
                     } catch (InterruptedException e) {
@@ -88,7 +94,7 @@ public class SplashScreen{
                     }
                 }
                     long startTime = System.nanoTime();
-                    mainScreen.setSideBar(manager);
+                    mainScreen.setSideBar(movieGroupList);
                     splashScreenController.setProgressBar("", -1, 0.6, 1000, "Building Content Page...", advanceButton);
                     mainScreen.setContentPage();
                     splashScreenController.setProgressBar("", -1, 1.0, 3000, "Completed!", advanceButton);
