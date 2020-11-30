@@ -1,5 +1,6 @@
 package com.kernaldrive.startupscreen;
 
+import com.kernaldrive.filescanning.GroupDBManager;
 import com.kernaldrive.metadata.MediaGroup;
 import com.kernaldrive.metadata.MovieGroup;
 import javafx.application.Application;
@@ -19,6 +20,7 @@ public class startupScreenTester extends Application {
 
         private ArrayList<File> groupPaths;
         private ArrayList<MediaGroup> mediaGroups;
+        GroupDBManager groupDB;
 
         public static void main(String[] args) {
             launch(args);
@@ -64,5 +66,4 @@ public class startupScreenTester extends Application {
             }
         }
 }
-
 
