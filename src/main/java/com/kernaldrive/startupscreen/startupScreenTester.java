@@ -1,5 +1,7 @@
 package com.kernaldrive.startupscreen;
 
+import com.kernaldrive.metadata.MediaGroup;
+import com.kernaldrive.metadata.MovieGroup;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -9,9 +11,14 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class startupScreenTester extends Application {
+
+        private ArrayList<File> groupPaths;
+        private ArrayList<MediaGroup> mediaGroups;
 
         public static void main(String[] args) {
             launch(args);
@@ -36,5 +43,26 @@ public class startupScreenTester extends Application {
             startupScreenController.loadStartupScreen(primaryStage);
 
         }
+
+        public void addGroup(String groupName) {
+            //if(groupType == "Movies"){
+            MediaGroup mediaGroup = new MovieGroup(groupName);
+            copyPaths(mediaGroup.getPaths());
+            //printGroups(mediaGroup.getPaths());
+            //}
+
+            /*if(groupType == "TV"){
+                MediaGroup mediaGroup = new ShowGroup(groupName);
+                copyPaths(mediaGroup.getPaths());
+            }
+             */
+        }
+
+        public void copyPaths(ArrayList<File> groupPaths){
+            for(File filePath : this.groupPaths){
+                groupPaths.add(filePath);
+            }
+        }
 }
+
 

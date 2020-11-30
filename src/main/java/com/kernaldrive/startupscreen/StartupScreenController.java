@@ -1,6 +1,4 @@
 package com.kernaldrive.startupscreen;
-import com.kernaldrive.gui.MainScreen;
-import com.kernaldrive.gui.splashscreen.SplashScreen;
 import com.kernaldrive.metadata.MediaGroup;
 import com.kernaldrive.metadata.MovieGroup;
 
@@ -41,8 +39,6 @@ import java.awt.TextArea;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -50,39 +46,33 @@ public class StartupScreenController{
 
     //private Button folderButton, backButton, addGroupButton;
     private ArrayList<File> groupPaths;
-    private ArrayList<MovieGroup> mediaGroups;
+    private ArrayList<MediaGroup> mediaGroups;
     private Color LIGHTBLUE = Color.rgb(153, 201, 255);
     private Color SIDEBARCOLOR = Color.rgb(32, 71, 102);
     private Color DARKBLUE = Color.rgb(26, 158, 197);
 
-@FXML
-AnchorPane anchorPane;
+    @FXML AnchorPane anchorPane;
 
-@FXML
-ImageView imageView;
+    @FXML ImageView imageView;
 
-@FXML
-Button button1;
+    @FXML Button button1;
 
-@FXML
-Button folderButton;
+    @FXML Button folderButton;
 
-@FXML
-Button addGroupButton;
+    @FXML Button addGroupButton;
 
-@FXML
-Button enterHomePage;
+    @FXML Button enterHomePage;
 
-@FXML
-TextField textField;
+    @FXML TextField textField;
 
-@FXML
-ListView listView;
+    @FXML ListView listView;
+
+    @FXML ListView listView1;
 
     public void loadStartupScreen(Stage primaryStage) throws Exception{
 
         groupPaths = new ArrayList<File>();
-        mediaGroups = new ArrayList<MovieGroup>();
+        mediaGroups = new ArrayList<MediaGroup>();
         anchorPane.setStyle("-fx-background-color: linear-gradient(to bottom left, rgba(40,43,82, 0.8) 20% , rgba(21,102,123, 0.8))");
 
 
@@ -94,12 +84,19 @@ ListView listView;
         //IMPORTING CSS
 
         //CREATING A LISTVIEW OF THE PATH
-        //ListView<String> folderPath = new ListView<>();
-        listView.setLayoutX((screenWidth/30)*11);
-        listView.setLayoutY((screenHeight/23)*15);
-        listView.setPrefSize((screenWidth/30)*12.1, (screenHeight/20)*2.7);
-        listView.getItems().add("Below is a List of Your Directory Paths:");
+        listView.setLayoutX((screenWidth/30)*15.1);
+        listView.setLayoutY((screenHeight/23)*13.5);
+        listView.setPrefSize((screenWidth/30)*8, (screenHeight/20)*2.7);
+        listView.getItems().add("Directories:");
         listView.setStyle("-fx-text-fill: WHITE;");
+
+        //CREATING A LISTVIEW OF THE GROUP
+        listView1.setLayoutX((screenWidth/30)*6.5);
+        listView1.setLayoutY((screenHeight/23)*13.5);
+        listView1.setPrefSize((screenWidth/30)*8, (screenHeight/20)*2.7);
+        listView1.getItems().add("Groups:");
+        listView1.setStyle("-fx-text-fill: WHITE;");
+
 
 
         //Adding LOGO
@@ -112,10 +109,10 @@ ListView listView;
 
         //ADDING TEXTFIELD-------------------------------
         textField.setPromptText("Enter Group Name...");
-        textField.setFont(Font.loadFont(new FileInputStream("./varela/Varela-Regular.otf"), 25));
+        textField.setFont(Font.loadFont(new FileInputStream("C:\\Users\\ahmed\\OneDrive\\Documents\\GitHub\\KernalDrive\\src\\Varela-Regular.ttf"), 25));
         textField.setStyle("-fx-text-fill: WHITE;");
         textField.setLayoutX((screenWidth/30)*6.5);
-        textField.setLayoutY((screenHeight/20)*11.1);
+        textField.setLayoutY((screenHeight/20)*9.8);
         textField.setPrefWidth((screenWidth/30)*16.6);
 
 
@@ -124,50 +121,27 @@ ListView listView;
 
         //folderButton = new Button();
         folderButton.setText("Add Directories");
-        folderButton.setFont(Font.loadFont(new FileInputStream("./varela/Varela-Regular.otf"), 25));
+        folderButton.setFont(Font.loadFont(new FileInputStream("C:\\Users\\ahmed\\OneDrive\\Documents\\GitHub\\KernalDrive\\src\\Varela-Regular.ttf"), 25));
         folderButton.setStyle("-fx-text-fill: WHITE;");
-        folderButton.setLayoutX((screenWidth/30)*6.5);
-        folderButton.setLayoutY((screenHeight/23)*15);
-        folderButton.setPrefWidth((screenWidth/30)*4.1);
+        folderButton.setLayoutX((screenWidth/30)*15.1);
+        folderButton.setLayoutY((screenHeight/23)*17.2);
+        folderButton.setPrefWidth((screenWidth/30)*8);
 
         //addGroupButton = new Button();
         addGroupButton.setText("Add Group");
-        addGroupButton.setFont(Font.loadFont(new FileInputStream("./varela/Varela-Regular.otf"), 25));
+        addGroupButton.setFont(Font.loadFont(new FileInputStream("C:\\Users\\ahmed\\OneDrive\\Documents\\GitHub\\KernalDrive\\src\\Varela-Regular.ttf"), 25));
         addGroupButton.setStyle("-fx-text-fill: WHITE;");
         addGroupButton.setLayoutX((screenWidth/30)*6.5);
-        addGroupButton.setLayoutY((screenHeight/23)*17);
-        addGroupButton.setPrefWidth((screenWidth/30)*4.1);
+        addGroupButton.setLayoutY((screenHeight/23)*17.2);
+        addGroupButton.setPrefWidth((screenWidth/30)*8);
 
         //enter home page button
         enterHomePage.setText("Enter Home Page");
-        enterHomePage.setFont(Font.loadFont(new FileInputStream("./varela/Varela-Regular.otf"), 25));
+        enterHomePage.setFont(Font.loadFont(new FileInputStream("C:\\Users\\ahmed\\OneDrive\\Documents\\GitHub\\KernalDrive\\src\\Varela-Regular.ttf"), 25));
         enterHomePage.setStyle("-fx-text-fill: WHITE;");
         enterHomePage.setPrefWidth((screenWidth/30)*16.6);
         enterHomePage.setLayoutX((screenWidth/30)*6.5);
         enterHomePage.setLayoutY((screenHeight/23)*19);
-
-        enterHomePage.setOnAction(new EventHandler<>() {      //if home button is clicked
-            @Override
-            public void handle(ActionEvent event) {
-                SplashScreen splashScreen;
-                try {
-                    splashScreen = new SplashScreen(mediaGroups, primaryStage);
-                    MainScreen mainScreen;
-                    mainScreen = new MainScreen();
-                    Scene splashScreenScene = splashScreen.getScene();
-
-                    //primaryStage.initStyle(StageStyle.UTILITY);
-                    primaryStage.show();
-                    //This essentially controls the loading of the resources and the progress bar
-                    splashScreen.setSplashScreen(mainScreen);
-                    primaryStage.setScene(splashScreenScene);
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
 
         folderButton.setOnAction(new EventHandler<>() {      //if folder button is clicked
             @Override
@@ -191,6 +165,7 @@ ListView listView;
             @Override
             public void handle(ActionEvent event) {
                 addGroup(textField.getText());
+                listView1.getItems().add(textField.getText());
                 clearScreen(textField, listView);
             }
         });
@@ -200,8 +175,8 @@ ListView listView;
 
     public void addGroup(String groupName){
         //if(groupType == "Movies"){
-        MovieGroup mediaGroup = new MovieGroup(groupName);
-        copyPaths(mediaGroup);
+        MediaGroup mediaGroup = new MovieGroup(groupName);
+        copyPaths(mediaGroup.getPaths());
             //printGroups(mediaGroup.getPaths());
         //}
 
@@ -215,6 +190,7 @@ ListView listView;
     public void clearScreen(TextField textField, ListView folderPath){
         textField.clear();
         groupPaths.clear();
+
         folderPath.getItems().clear();
     }
 
@@ -224,11 +200,9 @@ ListView listView;
         }
     }
 
-    public void copyPaths(MovieGroup mediaGroup){
+    public void copyPaths(ArrayList<File> groupPaths){
         for(File filePath : this.groupPaths){
-            System.out.println(filePath.getPath());
-            mediaGroup.addPath(filePath);
-            mediaGroups.add(mediaGroup);
+            groupPaths.add(filePath);
         }
     }
 
