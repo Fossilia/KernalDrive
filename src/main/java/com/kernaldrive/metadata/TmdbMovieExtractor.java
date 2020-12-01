@@ -3,6 +3,7 @@ package com.kernaldrive.metadata;
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.model.MovieDb;
+import info.movito.themoviedbapi.model.ProductionCompany;
 import info.movito.themoviedbapi.model.people.PersonCredits;
 
 import java.io.IOException;
@@ -31,18 +32,44 @@ public class TmdbMovieExtractor implements TmdbKeys{
         this.movieDb = tmdbApi.getMovie(movieID, language, TmdbMovies.MovieMethod.credits, TmdbMovies.MovieMethod.images);
         getTitle();
         getOverview();
+        //getOverview();
         getReleaseDate();
         getGenre();
         getPosters();
         getBanner();
+        //getCast();
+        //getCrew();
+        //getProductionCompanies();
+        //getRuntime();
+        //getMpaaRating();
+        //getTagline();
+        getPosterURL();
+        //getImdbId();
+
+        return movie;
+    }
+
+    public Movie extractSecondaryInfo(Movie movie){
+        this.movie = movie;
+        this.movieID = movie.getTmdbID();
+        this.movieDb = tmdbApi.getMovie(movieID, language, TmdbMovies.MovieMethod.credits, TmdbMovies.MovieMethod.images);
+        //getTitle();
+        getOverview();
+        //getReleaseDate();
+        getGenre();
+        //getPosters();
+        //getBanner();
         getCast();
         getCrew();
         getProductionCompanies();
         getRuntime();
         getMpaaRating();
         getTagline();
+        //getPosterURL();
+        getImdbId();
 
         return movie;
+
     }
 
     public void getTitle(){
@@ -77,6 +104,7 @@ public class TmdbMovieExtractor implements TmdbKeys{
 
     public void getProductionCompanies(){
         //System.out.println(movieDb.getProductionCompanies());
+        movie.setProductionCompanies(movieDb.getProductionCompanies());
     }
 
     private void getPosters(){
@@ -90,6 +118,11 @@ public class TmdbMovieExtractor implements TmdbKeys{
         }
         movie.setPosterPath("posters/"+movie.getTmdbID()+".jpg");
     }
+
+    private void getPosterURL(){
+        movie.setMoviePagePoster(movieDb.getPosterPath());
+    }
+
     public void getBanner(){
         movie.setBannerPath(movieDb.getBackdropPath());
     }
@@ -101,6 +134,11 @@ public class TmdbMovieExtractor implements TmdbKeys{
     public void getTagline(){
         movie.setTagline(movieDb.getTagline());
         //System.out.println(movieDb.getTagline());
+    }
+
+    public void getImdbId(){
+        movie.setImdbKey(movieDb.getImdbID());
+        movie.setImdbRating();
     }
 
     public void getMpaaRating(){

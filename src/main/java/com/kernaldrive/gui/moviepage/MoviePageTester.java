@@ -43,7 +43,7 @@ public class MoviePageTester extends Application {
         int movieID = tmdbFilenameSearch.searchTmdb("You were never lovelier 1942");
         Movie movie = tmdbMovieExtractor.extractMovieInfo("", movieID);
         moviePageController.setMovie(movie);
-        moviePageController.setLabels();
+        moviePageController.setPageContents(1000,1000);
 
     }
 }

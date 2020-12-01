@@ -70,7 +70,7 @@ public class MovieDBManager {
                 System.out.println("Building the Movie table with prepopulated values.");
                 //building table
                 Statement state2 = con.createStatement();
-                state2.execute("CREATE TABLE  movies(id integer, tmdbID integer, title varchar(60), year varchar(60), genre varchar(60), cover varchar(60), path varchar(300), scanned integer, primary key(id));");
+                state2.execute("CREATE TABLE  movies(id integer, tmdbID integer, title varchar(60), year varchar(60), genre varchar(60), cover varchar(60), banner varchar(100), mainposter varchar(100), path varchar(300), scanned integer, primary key(id));");
                 state2.close();
             }
         }
@@ -80,14 +80,32 @@ public class MovieDBManager {
         if(con == null){
             getConnection();
         }
-        PreparedStatement prep = con.prepareStatement(("INSERT  INTO movies values(?, ?, ?, ?, ?, ?, ?, ?)"));
+        /*
+        PreparedStatement prep = con.prepareStatement(("INSERT  INTO movies values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"));
         prep.setInt(2, movie.getTmdbID());
         prep.setString(3, movie.getTitle());
         prep.setString(4, movie.getYear());
         prep.setString(5, "WIP");
         prep.setString(6, movie.getPosterPath());
-        prep.setString(7,  movie.getFilePath());
-        prep.setInt(8,  1);
+        prep.setString(7, movie.getBannerPath());
+        prep.setString(8, movie.getMoviePagePoster());
+        prep.setString(9, movie.getFilePath());
+        prep.setInt(10,  1);
+        prep.execute();
+        prep.close();
+         */
+
+
+        PreparedStatement prep = con.prepareStatement(("INSERT  INTO movies values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"));
+        prep.setInt(2, movie.getTmdbID());
+        prep.setString(3, movie.getTitle());
+        prep.setString(4, movie.getYear());
+        prep.setString(5, "WIP");
+        prep.setString(6, movie.getPosterPath());
+        prep.setString(7, movie.getBannerPath());
+        prep.setString(8, movie.getMoviePagePoster());
+        prep.setString(9, movie.getFilePath());
+        prep.setInt(10,  1);
         prep.execute();
         prep.close();
     }

@@ -1,10 +1,15 @@
 package com.kernaldrive.gui;
 
+import com.kernaldrive.gui.moviepage.MoviePageController;
 import com.kernaldrive.metadata.Movie;
 import com.kernaldrive.metadata.MovieGroup;
+import com.kernaldrive.metadata.TmdbMovieExtractor;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -23,6 +28,7 @@ import javafx.scene.text.Font;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +42,16 @@ public class GroupScreen {
     private boolean searching = false;
     private Thread searchingThread;
 
-    public GroupScreen(){
+    private VBox mainContent;
+    private ScrollPane contentPageScrollPane;
+    double scrollPaneWidth, scrollPanHeight;
+
+    public GroupScreen(VBox mainContent, ScrollPane contentPageScrollPane, double width, double height){
         rows = 0;
+        this.mainContent = mainContent;
+        this.contentPageScrollPane = contentPageScrollPane;
+        this.scrollPaneWidth = width;
+        this.scrollPanHeight = height;
         pageSections = new ArrayList<>();
         movieGroups = new ArrayList<>();
         moviePosters = new ArrayList<>();
@@ -60,6 +74,7 @@ public class GroupScreen {
     }
 
     public ArrayList<HBox> getContent(double width, double height, Font movieFont, ObservableList<Node> visibleNodes) throws FileNotFoundException {
+        pageSections.clear();
         moviesPerRow = 0;
         double total = (width / 40) * 2;
         while (true) {
@@ -229,6 +244,17 @@ public class GroupScreen {
         year.setWrapText(true);
         year.setTextFill(Color.rgb(166, 166, 166));
         movieBox.getChildren().addAll(moviePoster, movieName, year);
+
+        movieBox.setOnMouseClicked(new EventHandler<Event>() {
+            @Override
+            public void handle(Event event) {
+                try {
+                    loadMovie(movie);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         return movieBox;
     }
 
@@ -250,6 +276,18 @@ public class GroupScreen {
         result.add(moviePosters);
         return result;
 
+    }
+
+    private void loadMovie(Movie movie) throws Exception {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(new URL("file:///C:\\Users\\idree\\Desktop\\KernalDrive\\src\\main\\java\\com\\kernaldrive\\gui\\moviepage\\MoviePageTest.fxml"));
+        mainContent.getChildren().removeAll(contentPageScrollPane);
+        mainContent.getChildren().add(loader.load());
+        MoviePageController moviePageController = loader.getController();
+        TmdbMovieExtractor tmdbMovieExtractor = new TmdbMovieExtractor();
+        movie = tmdbMovieExtractor.extractSecondaryInfo(movie); //fetch movie info from id and create movie object
+        moviePageController.setMovie(movie);
+        moviePageController.setPageContents(scrollPaneWidth, scrollPanHeight);
     }
 
     public boolean isSearching(){

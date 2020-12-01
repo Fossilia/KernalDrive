@@ -24,6 +24,10 @@
             <name>jcenter</name>
             <url>https://jcenter.bintray.com</url>
         </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -97,6 +101,15 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>5.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.serhatozdal</groupId>
+            <artifactId>imdb-scraper</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 </project>

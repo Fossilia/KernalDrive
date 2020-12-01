@@ -75,52 +75,52 @@ public class MainPageController {
     private Color DARKBLUE = Color.rgb(26, 158, 197);
     private Button titleButton;
 
-@FXML
-HBox screenWrapper;
-@FXML
-VBox sideBar;
-@FXML
-Button userIconBtn;
-@FXML
-FontIcon userIcon;
-@FXML
-Label userGreeting;
-@FXML
-HBox homeMenuItem;
-@FXML
-Button homeBtn;
-@FXML
-FontIcon homeIcon;
-@FXML
-Rectangle homeRect;
-@FXML
-VBox mainContent;
-@FXML
-VBox topBar;
-@FXML
-HBox mainTopBar;
-@FXML
-Button pageTitleButton;
-@FXML
-VBox searchBarVBox;
-@FXML
-Button searchBarTopMargin;
-@FXML
-HBox searchBarHBox;
-@FXML
-Button searchBarIcon;
-@FXML
-ComboBox comboBoxSearchBar;
-@FXML
-Button recommendedButton;
-@FXML
-Button libraryButton;
-@FXML
-Button topBarMiddleMargin;
-@FXML
-ScrollPane contentPageScrollPane;
-@FXML
-VBox scrollPaneVBox;
+    @FXML
+    HBox screenWrapper;
+    @FXML
+    VBox sideBar;
+    @FXML
+    Button userIconBtn;
+    @FXML
+    FontIcon userIcon;
+    @FXML
+    Label userGreeting;
+    @FXML
+    HBox homeMenuItem;
+    @FXML
+    Button homeBtn;
+    @FXML
+    FontIcon homeIcon;
+    @FXML
+    Rectangle homeRect;
+    @FXML
+    VBox mainContent;
+    @FXML
+    VBox topBar;
+    @FXML
+    HBox mainTopBar;
+    @FXML
+    Button pageTitleButton;
+    @FXML
+    VBox searchBarVBox;
+    @FXML
+    Button searchBarTopMargin;
+    @FXML
+    HBox searchBarHBox;
+    @FXML
+    Button searchBarIcon;
+    @FXML
+    ComboBox comboBoxSearchBar;
+    @FXML
+    Button recommendedButton;
+    @FXML
+    Button libraryButton;
+    @FXML
+    Button topBarMiddleMargin;
+    @FXML
+    ScrollPane contentPageScrollPane;
+    @FXML
+    VBox scrollPaneVBox;
 
     //This function sets the side bar for the main page
     public void setSideBar(double width, double height, ArrayList<MovieGroup> groups){
@@ -132,7 +132,7 @@ VBox scrollPaneVBox;
         //through the sidebar
         groupScreens = new GroupScreen[groups.size() + 3];
         for (int i = 0; i < groupScreens.length; i++){
-            groupScreens[i] = new GroupScreen();
+            groupScreens[i] = new GroupScreen(mainContent, contentPageScrollPane, contentPageWidth, contentPageHeight - topBar.getHeight());
         }
 
         //This variable keeps track of which side bar item one is on, at the beginning one is on the home
@@ -201,57 +201,57 @@ VBox scrollPaneVBox;
 
     public void addEventListener(int pos, HBox hBox, Button button, FontIcon icon, Rectangle rectangle){
         hBox.addEventHandler(MouseEvent.MOUSE_ENTERED,
-            new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    button.setTextFill(DARKBLUE);
-                    icon.setFill(DARKBLUE);
-                    rectangle.setFill(DARKBLUE);
-                }
-            });
-        hBox.addEventHandler(MouseEvent.MOUSE_EXITED,
-            new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    if (!hBox.getId().equals(currMenuItem)) {
-                        button.setTextFill(LIGHTBLUE);
-                        icon.setFill(LIGHTBLUE);
-                        rectangle.setFill(SIDEBARCOLOR);
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        button.setTextFill(DARKBLUE);
+                        icon.setFill(DARKBLUE);
+                        rectangle.setFill(DARKBLUE);
                     }
-                }
-            });
-        button.addEventHandler(MouseEvent.MOUSE_CLICKED,
-            new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    ObservableList<Node> sideBarItems = sideBar.getChildren();
-                    for (int i = 0; i < sideBarItems.size(); i++){
-                        if (sideBarItems.get(i).getClass().getName().equals("javafx.scene.layout.HBox")){
-                            if (sideBarItems.get(i).getId().equals(currMenuItem)){
-                                HBox itemBox = (HBox)sideBarItems.get(i);
-                                Button menuBtn = (Button)itemBox.getChildren().get(0);
-                                menuBtn.setTextFill(LIGHTBLUE);
-                                FontIcon icon = (FontIcon)menuBtn.getGraphic();
-                                icon.setFill(LIGHTBLUE);
-
-                                Rectangle menuRect = (Rectangle)itemBox.getChildren().get(1);
-                                menuRect.setFill(SIDEBARCOLOR);
-                                menuRect.setStroke(SIDEBARCOLOR);
-                            }
+                });
+        hBox.addEventHandler(MouseEvent.MOUSE_EXITED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        if (!hBox.getId().equals(currMenuItem)) {
+                            button.setTextFill(LIGHTBLUE);
+                            icon.setFill(LIGHTBLUE);
+                            rectangle.setFill(SIDEBARCOLOR);
                         }
                     }
-                    button.setTextFill(DARKBLUE);
-                    icon.setFill(DARKBLUE);
-                    rectangle.setFill(DARKBLUE);
-                    currMenuItem = hBox.getId();
-                    menuPos = pos;
-                    try {
-                        addContent();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
+                });
+        button.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        ObservableList<Node> sideBarItems = sideBar.getChildren();
+                        for (int i = 0; i < sideBarItems.size(); i++){
+                            if (sideBarItems.get(i).getClass().getName().equals("javafx.scene.layout.HBox")){
+                                if (sideBarItems.get(i).getId().equals(currMenuItem)){
+                                    HBox itemBox = (HBox)sideBarItems.get(i);
+                                    Button menuBtn = (Button)itemBox.getChildren().get(0);
+                                    menuBtn.setTextFill(LIGHTBLUE);
+                                    FontIcon icon = (FontIcon)menuBtn.getGraphic();
+                                    icon.setFill(LIGHTBLUE);
+
+                                    Rectangle menuRect = (Rectangle)itemBox.getChildren().get(1);
+                                    menuRect.setFill(SIDEBARCOLOR);
+                                    menuRect.setStroke(SIDEBARCOLOR);
+                                }
+                            }
+                        }
+                        button.setTextFill(DARKBLUE);
+                        icon.setFill(DARKBLUE);
+                        rectangle.setFill(DARKBLUE);
+                        currMenuItem = hBox.getId();
+                        menuPos = pos;
+                        try {
+                            addContent();
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
-            });
+                });
     }
 
     public void setContent() throws FileNotFoundException {
@@ -266,10 +266,11 @@ VBox scrollPaneVBox;
         addContent();
 
     }
-        //contentContainer.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+    //contentContainer.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
     public void addContent() throws FileNotFoundException {
         setTopBar(groupScreens[menuPos].getTitle());
         scrollPaneVBox.getChildren().clear();
+        contentPageScrollPane.setVvalue(0);
         ArrayList<HBox> pageSections = groupScreens[menuPos].getContent(contentPageWidth, contentPageHeight, movieFont, visibleNodes);
         for (int i = 0; i < pageSections.size(); i++) {
             scrollPaneVBox.getChildren().add(pageSections.get(i));
@@ -292,6 +293,10 @@ VBox scrollPaneVBox;
     }
 
     public void fixPane(){
+        Dimension scrnSize = Toolkit.getDefaultToolkit().getScreenSize();
+        java.awt.Rectangle winSize = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+        int taskBarHeight = scrnSize.height - winSize.height;
+        System.out.println("Task Bar Height: "+taskBarHeight);
         fixBlurryText(contentPageScrollPane);
         ObservableList<Node> sideBarChildren = sideBar.getChildren();
         for (int i = 2; i < sideBarChildren.size(); i++){

@@ -44,23 +44,15 @@ public class StartupScreenController{
     private Color SIDEBARCOLOR = Color.rgb(32, 71, 102);
     private Color DARKBLUE = Color.rgb(26, 158, 197);
 
-    @FXML AnchorPane anchorPane;
-
-    @FXML ImageView imageView;
-
-    @FXML Button button1;
-
-    @FXML Button folderButton;
-
-    @FXML Button addGroupButton;
-
-    @FXML Button enterHomePage;
-
-    @FXML TextField textField;
-
-    @FXML ListView listView;
-
-    @FXML ListView listView1;
+    @FXML private AnchorPane anchorPane;
+    @FXML private ImageView imageView;
+    @FXML private Button button1;
+    @FXML private Button folderButton;
+    @FXML private Button addGroupButton;
+    @FXML private Button enterHomePage;
+    @FXML private TextField textField;
+    @FXML private ListView listView;
+    @FXML private ListView listView1;
 
     public void loadStartupScreen(Stage primaryStage) throws Exception{
 
@@ -72,7 +64,6 @@ public class StartupScreenController{
         Rectangle2D screenBounds = Screen.getPrimary().getBounds();
         double screenWidth = screenBounds.getWidth();
         double screenHeight = screenBounds.getHeight();
-
 
         //IMPORTING CSS
 
@@ -90,19 +81,17 @@ public class StartupScreenController{
         listView1.getItems().add("Groups:");
         listView1.setStyle("-fx-text-fill: WHITE;");
 
-
-
         //Adding LOGO
-        imageView.setFitHeight((screenHeight/3)*1.5);
+        imageView.setFitHeight((screenHeight/4)*1.5);
         imageView.setPreserveRatio(true);
-        imageView.setX((screenWidth/14)*2);
+        imageView.setX((screenWidth/14)*1.5);
         imageView.setY((screenHeight/20)*0.2);
         imageView.setPickOnBounds(true);
 
 
         //ADDING TEXTFIELD-------------------------------
         textField.setPromptText("Enter Group Name...");
-        textField.setFont(Font.loadFont(new FileInputStream("./varela/Varela-Regular.otf"), 25));
+        textField.setFont(Font.loadFont(new FileInputStream("./varela/Varela-Regular.otf"), 20));
         textField.setStyle("-fx-text-fill: WHITE;");
         textField.setLayoutX((screenWidth/30)*6.5);
         textField.setLayoutY((screenHeight/20)*9.8);
@@ -114,7 +103,7 @@ public class StartupScreenController{
 
         //folderButton = new Button();
         folderButton.setText("Add Directories");
-        folderButton.setFont(Font.loadFont(new FileInputStream("./varela/Varela-Regular.otf"), 25));
+        folderButton.setFont(Font.loadFont(new FileInputStream("./varela/Varela-Regular.otf"), 20));
         folderButton.setStyle("-fx-text-fill: WHITE;");
         folderButton.setLayoutX((screenWidth/30)*15.1);
         folderButton.setLayoutY((screenHeight/23)*17.2);
@@ -122,7 +111,7 @@ public class StartupScreenController{
 
         //addGroupButton = new Button();
         addGroupButton.setText("Add Group");
-        addGroupButton.setFont(Font.loadFont(new FileInputStream("./varela/Varela-Regular.otf"), 25));
+        addGroupButton.setFont(Font.loadFont(new FileInputStream("./varela/Varela-Regular.otf"), 20));
         addGroupButton.setStyle("-fx-text-fill: WHITE;");
         addGroupButton.setLayoutX((screenWidth/30)*6.5);
         addGroupButton.setLayoutY((screenHeight/23)*17.2);
@@ -130,7 +119,7 @@ public class StartupScreenController{
 
         //enter home page button
         enterHomePage.setText("Enter Home Page");
-        enterHomePage.setFont(Font.loadFont(new FileInputStream("./varela/Varela-Regular.otf"), 25));
+        enterHomePage.setFont(Font.loadFont(new FileInputStream("./varela/Varela-Regular.otf"), 20));
         enterHomePage.setStyle("-fx-text-fill: WHITE;");
         enterHomePage.setPrefWidth((screenWidth/30)*16.6);
         enterHomePage.setLayoutX((screenWidth/30)*6.5);
@@ -258,8 +247,8 @@ public class StartupScreenController{
         for(File filePath : this.groupPaths){
             System.out.println(filePath.getPath());
             mediaGroup.addPath(filePath);
-            movieGroups.add(mediaGroup);
         }
+        movieGroups.add(mediaGroup);
     }
 
 }

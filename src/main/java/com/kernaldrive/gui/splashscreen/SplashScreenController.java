@@ -25,32 +25,35 @@ public class SplashScreenController {
     private String boldFontPath = "file:varela\\Varela-Regular.otf";
     private Font loadFont = Font.loadFont(boldFontPath, 22);
     private Font progressFont = Font.loadFont(boldFontPath, 18);
+    private Font advanceButtonFont = Font.loadFont(boldFontPath, 16);
     private ProgressBar progressBar;
+    private double screenWidth;
 
-@FXML
-AnchorPane splashScreen;
-@FXML
-VBox screenContent;
-@FXML
-HBox imageRow;
-@FXML
-Button leftMargin;
-@FXML
-ImageView logo;
-@FXML
-Label loading;
-@FXML
-ScrollPane progressUpdate;
-@FXML
-VBox progressReport;
+    @FXML
+    AnchorPane splashScreen;
+    @FXML
+    VBox screenContent;
+    @FXML
+    HBox imageRow;
+    @FXML
+    Button leftMargin;
+    @FXML
+    ImageView logo;
+    @FXML
+    Label loading;
+    @FXML
+    ScrollPane progressUpdate;
+    @FXML
+    VBox progressReport;
 
     public void setSplashScreen(double width, double height, MovieGroup movieGroup){
+        this.screenWidth = width;
         splashScreen.setMinWidth(width);
         splashScreen.setMinHeight(height);
         splashScreen.setStyle("-fx-background-color: linear-gradient(to bottom left, rgba(40,43,82, 0.8) 20% , rgba(21,102,123, 0.8))");
         imageRow.setPadding(new Insets(height/25,0,height / 15,0));
         imageRow.setMinWidth(width);
-        leftMargin.setMinWidth(width/3);
+        leftMargin.setMinWidth(width*0.325);
         leftMargin.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
         logo.setFitWidth(width/3.5);
         loading.setText("Scanning " + movieGroup.getName() + " Group...");
@@ -102,10 +105,18 @@ VBox progressReport;
                     progressReport.getChildren().add(newGroup);
                 }
                 if (toValue == 1.0){
+                    Button advanceButtonLeftMargin = new Button("");
+                    advanceButtonLeftMargin.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+                    advanceButtonLeftMargin.setMinWidth(screenWidth*0.325);
                     screenContent.getChildren().remove(progressBar);
                     advanceButton.setAlignment(Pos.CENTER);
-                    advanceButton.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
-                    screenContent.getChildren().add(advanceButton);
+                    advanceButton.setMinWidth(screenWidth / 3.5);
+                    advanceButton.setTextFill(Color.WHITE);
+                    advanceButton.setFont(advanceButtonFont);
+                    advanceButton.setPadding(new Insets(5,5,5,5));
+                    advanceButton.setStyle("-fx-background-radius: 5px; -fx-background-color: #204666");
+                    HBox advanceButtonHBox = new HBox(advanceButtonLeftMargin, advanceButton);
+                    screenContent.getChildren().add(advanceButtonHBox);
                 }
             }
         });
