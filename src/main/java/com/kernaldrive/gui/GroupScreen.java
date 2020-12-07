@@ -280,7 +280,7 @@ public class GroupScreen {
 
     private void loadMovie(Movie movie) throws Exception {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(new URL("file:///C:\\Users\\idree\\Desktop\\KernalDrive\\src\\main\\java\\com\\kernaldrive\\gui\\moviepage\\MoviePageTest.fxml"));
+        loader.setLocation(new URL(new URL("file:"), "./src/main/java/com/kernaldrive/gui/moviepage/MoviePageTest.fxml"));
         mainContent.getChildren().removeAll(contentPageScrollPane);
         mainContent.getChildren().add(loader.load());
         MoviePageController moviePageController = loader.getController();
